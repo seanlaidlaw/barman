@@ -1,0 +1,10 @@
+Package: barman
+Type: Package
+Title: Barman, makes you your G&T (plots)
+Version: 0.1.0
+Author: Sean Laidlaw
+Maintainer: Sean Laidlaw <sl31@sanger.ac.uk>
+Description: Convenient functions to aid in pre-processing and plotting multiomic data produced with the G&T-seq method.
+License: GPLv3
+Encoding: UTF-8
+LazyData: true
