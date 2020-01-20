@@ -8,3 +8,8 @@ Description: Convenient functions to aid in pre-processing and plotting multiomi
 License: GPLv3
 Encoding: UTF-8
 LazyData: true
+imports:
+	SingleCellExperiment (>= 1.6)
+	scater (>= 1.12)
+	copynumber (>= 1.24.0)
+	karyoploteR (>= 1.10)
