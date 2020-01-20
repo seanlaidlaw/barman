@@ -9,7 +9,7 @@
 #'
 #' @export
 
-filter_and_normalise_scRNA <- function(counts_matrix, annotation_table) {
+filter_and_normalise_scRNA <- function(counts_matrix, annotation_table=FALSE, return_sce=FALSE) {
 
 	trimmed_counts_matrix = counts_matrix
 	rownames(trimmed_counts_matrix) = trimmed_counts_matrix$Geneid
@@ -23,10 +23,17 @@ filter_and_normalise_scRNA <- function(counts_matrix, annotation_table) {
 	trimmed_counts_matrix$Length = NULL
 
 
-	fc_sce <- SingleCellExperiment::SingleCellExperiment(
-		assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix))),
-		colData = annotation_table
-	)
+	if (annotation_table) {
+		fc_sce <- SingleCellExperiment::SingleCellExperiment(
+			assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix))),
+			colData = annotation_table
+		)
+	} else {
+		fc_sce <- SingleCellExperiment::SingleCellExperiment(
+			assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix))),
+		)
+	}
+
 
 
 	SingleCellExperiment::isSpike(fc_sce, "ERCC") <- grepl("ERCC-", rownames(fc_sce))
@@ -76,6 +83,10 @@ filter_and_normalise_scRNA <- function(counts_matrix, annotation_table) {
 	length_list = as.numeric(length_list$Length)
 
 	scater::fpkm(fc_sce) = scater::calculateFPKM(fc_sce, effective_length = length_list, exprs_values = "counts")
+
+	if (return_sce) {
+		return(fc_sce)
+	}
 
 	fpkm_counts_matrix = counts_matrix
 	rownames(fpkm_counts_matrix) = fpkm_counts_matrix$Geneid
