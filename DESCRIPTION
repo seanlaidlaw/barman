@@ -13,3 +13,4 @@ imports:
 	scater (>= 1.12)
 	copynumber (>= 1.24.0)
 	karyoploteR (>= 1.10)
+RoxygenNote: 7.0.2
