@@ -13,4 +13,5 @@ imports:
 	scater (>= 1.12)
 	copynumber (>= 1.24.0)
 	karyoploteR (>= 1.10)
+	biomaRt (>= 2.40.4)
 RoxygenNote: 7.0.2
