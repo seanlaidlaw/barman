@@ -4,12 +4,21 @@
 \alias{filter_and_normalise_scRNA}
 \title{barman}
 \usage{
-filter_and_normalise_scRNA(counts_matrix, annotation_table)
+filter_and_normalise_scRNA(
+  counts_matrix,
+  annotation_table = FALSE,
+  return_sce = FALSE,
+  manual_filter = FALSE
+)
 }
 \arguments{
 \item{counts_matrix}{a raw counts matrix from featureCounts}
 
 \item{annotation_table}{an annotation table}
+
+\item{return_sce}{boolean to return SCE object instead of matrix}
+
+\item{manual_filter}{vector of 4 ints, manually specifying cutoffs to apply for total counts.  e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, %mt, and %ercc respectively. This is optional as automatic outlier detection usually works.}
 }
 \value{
 Nothing
