@@ -46,7 +46,7 @@ qc_plots <- function(counts_matrix) {
 
 
 	fc_sce <- SingleCellExperiment::SingleCellExperiment(
-		assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix))),
+		assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix) + 1)),
 	)
 
 

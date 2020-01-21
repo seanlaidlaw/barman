@@ -27,11 +27,11 @@ filter_and_normalise_scRNA <- function(counts_matrix, annotation_table=FALSE, re
 
 	if (missing(annotation_table)) {
 		fc_sce <- SingleCellExperiment::SingleCellExperiment(
-			assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix))),
+			assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix) + 1)),
 		)
 	} else {
 		fc_sce <- SingleCellExperiment::SingleCellExperiment(
-			assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix))),
+			assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix) + 1)),
 			colData = annotation_table
 		)
 	}
