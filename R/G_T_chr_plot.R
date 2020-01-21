@@ -21,13 +21,11 @@ G_T_chr_plot <- function(cnv_data, exp_data, title, save) {
 	}
 
 	cnv_data$Chr <- paste0("chr", cnv_data$Chr)
-	cnv_data_upper_cutoff <- round(sd(cnv_data$rawCN) * 6)
-	cnv_data_upper_cutoff <- max(cnv_data$segmentedCN)
+	cnv_data_upper_cutoff <- round(mean(cnv_data$segmentedCN) + sd(cnv_data$segmentedCN) * 3)
 	cnv_data <- cnv_data[cnv_data$rawCN <= cnv_data_upper_cutoff, ]
 
 	exp_data$Chr <- paste0("chr", exp_data$Chr)
-	exp_data_upper_cutoff <- signif(sd(exp_data$SegmentExp) * 6, digits = 2)
-	exp_data_upper_cutoff <- max(exp_data$PCFexp)
+	exp_data_upper_cutoff <- mean(exp_data$PCFexp) + signif(sd(exp_data$SegmentExp) * 3, digits = 2)
 	exp_data <- exp_data[exp_data$SegmentExp <= exp_data_upper_cutoff, ]
 
 
