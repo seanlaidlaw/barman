@@ -34,6 +34,7 @@ qc_plots <- function(counts_matrix) {
 
 	trimmed_counts_matrix = counts_matrix
 	trimmed_counts_matrix = trimmed_counts_matrix[!duplicated(trimmed_counts_matrix[,c('Geneid')]),]
+	trimmed_counts_matrix = trimmed_counts_matrix[trimmed_counts_matrix$Geneid != "",]
 	rownames(trimmed_counts_matrix) = trimmed_counts_matrix$Geneid
 	trimmed_counts_matrix$Geneid = NULL
 	trimmed_counts_matrix$Chr = NULL
