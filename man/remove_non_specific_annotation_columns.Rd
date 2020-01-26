@@ -4,7 +4,7 @@
 \alias{remove_non_specific_annotation_columns}
 \title{barman}
 \usage{
-remove_non_specific_annotation_columns(annotation_table, exclude = FALSE)
+remove_non_specific_annotation_columns(annotation_table, exclude)
 }
 \arguments{
 \item{annotation_table}{a table of annotations we want to prune}

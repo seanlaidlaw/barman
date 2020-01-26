@@ -9,10 +9,10 @@
 #'
 #' @export
 
-remove_non_specific_annotation_columns <- function(annotation_table, exclude=FALSE) {
-	if (exclude != FALSE) {
+remove_non_specific_annotation_columns <- function(annotation_table, exclude) {
+	if (!missing(exclude)) {
 		if (typeof(exclude) == "character") {
-			exclude = list(exclude)
+			exclude = as.list(exclude)
 		}
 
 		if (typeof(exclude) != "list") {
@@ -20,6 +20,8 @@ remove_non_specific_annotation_columns <- function(annotation_table, exclude=FAL
 			return(NA)
 		}
 	}
+
+
 
 	for (i in colnames(annotation_table)) {
 		if (length(unique(annotation_table[[i]])) == 1) {
