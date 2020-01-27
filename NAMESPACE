@@ -2,6 +2,7 @@
 
 export(G_T_chr_plot)
 export(ascat2sccnvseg)
+export(bulk_get_expression_by_segment)
 export(filter_and_normalise_scRNA)
 export(get_expression_by_segment)
 export(plot_rna_clusters)
