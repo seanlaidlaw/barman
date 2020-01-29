@@ -18,10 +18,10 @@ filter_and_normalise_scRNA(
 
 \item{return_sce}{boolean to return SCE object instead of matrix}
 
-\item{manual_filter}{vector of 4 ints, manually specifying cutoffs to apply for total counts.  e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, %mt, and %ercc respectively. This is optional as automatic outlier detection usually works.}
+\item{manual_filter}{vector of 4 ints, manually specifying cutoffs to apply for total counts.  e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, pct mt, and pct ercc respectively. This is optional as automatic outlier detection usually works.}
 }
 \value{
-Nothing
+normalized counts matrix
 }
 \description{
 filters out poor quality cells and features, and converts counts matrix to FPKM
