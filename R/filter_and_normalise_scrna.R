@@ -5,7 +5,7 @@
 #' @param counts_matrix a raw counts matrix from featureCounts
 #' @param annotation_table an annotation table
 #' @param return_sce boolean to return SCE object instead of matrix
-#' @param manual_filter vector of 4 ints, manually specifying cutoffs to apply for total counts.  e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, pct mt, and pct ercc respectively. This is optional as automatic outlier detection usually works.
+#' @param manual_filter vector of 4 values, manually specifying upper cutoffs to apply for total counts. e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, pct mt, and pct ercc respectively. Also accepts lists instead of ints, where the first element of list is lower cutoff and second is upper cutoff.
 #'
 #' @return normalized counts matrix
 #'
