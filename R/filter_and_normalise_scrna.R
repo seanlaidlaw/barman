@@ -6,11 +6,12 @@
 #' @param annotation_table an annotation table
 #' @param return_sce boolean to return SCE object instead of matrix
 #' @param manual_filter vector of 4 values, manually specifying upper cutoffs to apply for total counts. e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, pct mt, and pct ercc respectively. Also accepts lists instead of ints, where the first element of list is lower cutoff and second is upper cutoff.
+#' @param filter_only boolean to return only filtered (i.e. non-fpkm normalized) matrix
 #'
 #' @return normalized counts matrix
 #'
 #' @export
-filter_and_normalise_scRNA <- function(counts_matrix, annotation_table=FALSE, return_sce=FALSE, manual_filter=FALSE) {
+filter_and_normalise_scRNA <- function(counts_matrix, annotation_table=FALSE, return_sce=FALSE, manual_filter=FALSE, filter_only=FALSE) {
 
 	trimmed_counts_matrix = counts_matrix
 	rownames(trimmed_counts_matrix) = trimmed_counts_matrix$Geneid
@@ -62,7 +63,7 @@ filter_and_normalise_scRNA <- function(counts_matrix, annotation_table=FALSE, re
 	fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "ERCC")]
 	fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "MT")]
 
-	if (manual_filter == FALSE) {
+	if (typeof(manual_filter) != "list") {
 		fc_sce <- scater::runPCA(
 			fc_sce,
 			use_coldata = TRUE,
@@ -80,10 +81,20 @@ filter_and_normalise_scRNA <- function(counts_matrix, annotation_table=FALSE, re
 
 	} else {
 		# apply manual cutoffs
-		total_features_by_counts = fc_sce$total_features_by_counts <= manual_filter[1]
-		total_counts = fc_sce$total_counts <= manual_filter[2]
-		pct_counts_MT = fc_sce$pct_counts_MT <= manual_filter[3]
-		pct_counts_ERCC = fc_sce$pct_counts_ERCC <= manual_filter[4]
+
+
+		if (length(manual_filter[[1]]) > 1) {
+			total_features_by_counts = fc_sce$total_features_by_counts >= manual_filter[[1]][1] & fc_sce$total_features_by_counts <= manual_filter[[1]][2]
+		} else {
+			total_features_by_counts = fc_sce$total_features_by_counts <= manual_filter[[1]]
+		}
+		if (length(manual_filter[[2]]) > 1) {
+			total_counts = fc_sce$total_counts >= manual_filter[[2]][1] & fc_sce$total_counts <= manual_filter[[2]][2]
+		} else {
+			total_counts = fc_sce$total_counts <= manual_filter[[2]]
+		}
+		pct_counts_MT = fc_sce$pct_counts_MT <= manual_filter[[3]]
+		pct_counts_ERCC = fc_sce$pct_counts_ERCC <= manual_filter[[4]]
 
 		fc_sce$use <-(pct_counts_ERCC & pct_counts_MT & total_counts & total_features_by_counts )
 
@@ -114,6 +125,22 @@ filter_and_normalise_scRNA <- function(counts_matrix, annotation_table=FALSE, re
 	length_list = merge(SingleCellExperiment::counts(fc_sce), length_list, by = "row.names")
 	length_list = subset(length_list, select = Length)
 	length_list = as.numeric(length_list$Length)
+
+	if (filter_only) {
+		if (return_sce) {
+			return(fc_sce)
+		} else {
+			rownames(counts_matrix) = counts_matrix$Geneid
+			counts_matrix$Geneid = NULL
+			counts_matrix = merge(counts_matrix[,c("Chr","Start","End","Strand","Length")], SingleCellExperiment::counts(fc_sce), by = "row.names")
+			counts_matrix$Geneid = counts_matrix$Row.names
+			counts_matrix$Row.names = NULL
+			counts_matrix = counts_matrix[,append("Geneid", colnames(counts_matrix)[1:length(colnames(counts_matrix))-1])]
+
+			return(counts_matrix)
+		}
+	}
+
 
 	scater::fpkm(fc_sce) = scater::calculateFPKM(fc_sce, effective_length = length_list, exprs_values = "counts")
 
