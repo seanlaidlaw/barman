@@ -4,7 +4,12 @@
 \alias{bulk_get_expression_by_segment}
 \title{barman}
 \usage{
-bulk_get_expression_by_segment(counts_matrix, dna_segments_dir, output_dir)
+bulk_get_expression_by_segment(
+  counts_matrix,
+  dna_segments_dir,
+  output_dir,
+  threads
+)
 }
 \arguments{
 \item{counts_matrix}{a featureCounts matrix}
@@ -12,6 +17,8 @@ bulk_get_expression_by_segment(counts_matrix, dna_segments_dir, output_dir)
 \item{dna_segments_dir}{folder of CNV segment files from scCNV or converted from ASCAT with ascat2sccnvseg()}
 
 \item{output_dir}{an output directory to store RNAsegment files}
+
+\item{threads}{number of threads to run concurrently (defaults to number of avaliable cores minus 1)}
 }
 \value{
 Nothing
