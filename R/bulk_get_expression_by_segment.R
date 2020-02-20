@@ -23,7 +23,7 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 
 	# make sure some files in dna_segments_dir match colnames of counts matrix
 	anyfile = F
-	for (i in length(cell_sample_names)) {
+	for (i in 1:length(cell_sample_names)) {
 		if (any(grepl(paste0(".*?",cell_sample_names[i], ".*"), list.files(dna_segments_dir)))) {
 			anyfile = T
 		}
