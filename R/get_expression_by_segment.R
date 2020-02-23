@@ -19,6 +19,14 @@ get_expression_by_segment <- function(cell_id, counts_matrix, segment_file) {
 
 	counts_matrix_subset = counts_matrix[,c("Chr", "Start", "End", cell_id)]
 
+	for (numeric_column in c("Start", "End")) {
+		if (typeof(counts_matrix[[numeric_column]]) != "integer") {
+			print("Error: ",numeric_column," column is not an integer, can not proceed with segmentation. Please verify column only contains integers.")
+			return(NA)
+		}
+	}
+
+
 	segmented_expression_table = data.frame(matrix(rep(NA,nrow(segment_file)*4),nrow(segment_file),4))
 	colnames(segmented_expression_table) = c("Chr", "Start", "SegmentExp", "End")
 
