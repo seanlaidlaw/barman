@@ -2,7 +2,7 @@
 % Please edit documentation in R/bulk_G_T_chr_plots.R
 \name{bulk_G_T_chr_plots}
 \alias{bulk_G_T_chr_plots}
-\title{barman}
+\title{bulk_G_T_chr_plots}
 \usage{
 bulk_G_T_chr_plots(dna_segments_dir, rna_segments_dir, threads)
 }

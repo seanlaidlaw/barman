@@ -2,7 +2,7 @@
 % Please edit documentation in R/ascat2sccnvseg.R
 \name{ascat2sccnvseg}
 \alias{ascat2sccnvseg}
-\title{barman}
+\title{ascat2sccnvseg}
 \usage{
 ascat2sccnvseg(ascat_summary)
 }

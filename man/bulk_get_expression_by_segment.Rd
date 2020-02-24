@@ -2,7 +2,7 @@
 % Please edit documentation in R/bulk_get_expression_by_segment.R
 \name{bulk_get_expression_by_segment}
 \alias{bulk_get_expression_by_segment}
-\title{barman}
+\title{bulk_get_expression_by_segment}
 \usage{
 bulk_get_expression_by_segment(
   counts_matrix,

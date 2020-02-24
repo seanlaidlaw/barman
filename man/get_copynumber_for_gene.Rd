@@ -2,7 +2,7 @@
 % Please edit documentation in R/G_T_chr_plot.R
 \name{get_copynumber_for_gene}
 \alias{get_copynumber_for_gene}
-\title{barman}
+\title{G_T_chr_plot}
 \usage{
 get_copynumber_for_gene(dna_segments, chr, start, end, gene_name)
 }

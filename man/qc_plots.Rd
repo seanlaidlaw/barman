@@ -2,7 +2,7 @@
 % Please edit documentation in R/qc_plots.R
 \name{qc_plots}
 \alias{qc_plots}
-\title{barman}
+\title{qc_plots}
 \usage{
 qc_plots(counts_matrix)
 }

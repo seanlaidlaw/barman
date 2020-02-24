@@ -2,7 +2,7 @@
 % Please edit documentation in R/rename_counts_matrix_from_annotation.R
 \name{rename_counts_matrix_from_annotation}
 \alias{rename_counts_matrix_from_annotation}
-\title{barman}
+\title{rename_counts_matrix_from_annotation}
 \usage{
 rename_counts_matrix_from_annotation(
   counts_matrix,

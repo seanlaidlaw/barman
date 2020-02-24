@@ -1,4 +1,4 @@
-#' @title barman
+#' @title get_expression_by_segment
 #'
 #' @description create a segment table of RNA expression, using the same segments as a provided CNV segment file
 #'

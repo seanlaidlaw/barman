@@ -2,7 +2,7 @@
 % Please edit documentation in R/remove_non_specific_columns.R
 \name{remove_non_specific_annotation_columns}
 \alias{remove_non_specific_annotation_columns}
-\title{barman}
+\title{remove_non_specific_annotation_columns}
 \usage{
 remove_non_specific_annotation_columns(annotation_table, exclude)
 }

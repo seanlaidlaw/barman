@@ -1,4 +1,4 @@
-#' @title barman
+#' @title filter_and_normalise_scRNA
 #'
 #' @description filters out poor quality cells and features, and converts counts matrix to FPKM
 #'

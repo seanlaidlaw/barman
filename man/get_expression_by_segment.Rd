@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_expression_by_segment.R
 \name{get_expression_by_segment}
 \alias{get_expression_by_segment}
-\title{barman}
+\title{get_expression_by_segment}
 \usage{
 get_expression_by_segment(cell_id, counts_matrix, segment_file)
 }

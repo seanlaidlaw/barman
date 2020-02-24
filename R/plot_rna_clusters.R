@@ -1,4 +1,4 @@
-#' @title barman
+#' @title plot_rna_clusters
 #'
 #' @description plots UMAP of a filtered and normalized SingleCellExperiement object
 #'

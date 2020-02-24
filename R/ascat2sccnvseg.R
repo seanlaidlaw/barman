@@ -1,4 +1,4 @@
-#' @title barman
+#' @title ascat2sccnvseg
 #'
 #' @description Converts ASCAT summary segmentation format to scCNV format, for plotting ASCAT data with G_T_chr_plots
 #'

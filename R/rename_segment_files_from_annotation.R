@@ -1,4 +1,4 @@
-#' @title barman
+#' @title rename_segment_files_from_annotation
 #'
 #' @description Renames a folder of segmentation files to remove the bloat from filenames, leaving only the cell id and a ".txt" suffix
 #'

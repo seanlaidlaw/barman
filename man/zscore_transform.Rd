@@ -2,7 +2,7 @@
 % Please edit documentation in R/zscore_transform.R
 \name{zscore_transform}
 \alias{zscore_transform}
-\title{barman}
+\title{zscore_transform}
 \usage{
 zscore_transform(all_cells_to_normalise, counts_matrix)
 }

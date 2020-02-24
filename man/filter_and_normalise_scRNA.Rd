@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter_and_normalise_scrna.R
 \name{filter_and_normalise_scRNA}
 \alias{filter_and_normalise_scRNA}
-\title{barman}
+\title{filter_and_normalise_scRNA}
 \usage{
 filter_and_normalise_scRNA(
   counts_matrix,

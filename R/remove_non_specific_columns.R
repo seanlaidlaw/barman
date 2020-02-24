@@ -1,4 +1,4 @@
-#' @title barman
+#' @title remove_non_specific_annotation_columns
 #'
 #' @description removes columns from table where all values are the same or where all values are distinct strings
 #'

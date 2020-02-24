@@ -1,4 +1,4 @@
-#' @title barman
+#' @title rename_counts_matrix_from_annotation
 #'
 #' @description Renames the counts matrix column names from a provided annotation table
 #'

@@ -1,4 +1,4 @@
-#' @title barman
+#' @title zscore_transform
 #'
 #' @description apply a zscore transformation to a list of columns based on average and SD of a column names provided by all_cells_to_normalise arg. Zscore should only be applied on counts matrix containing values that follow a normal distribution.
 #'

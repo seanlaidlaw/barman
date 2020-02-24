@@ -1,4 +1,4 @@
-#' @title barman
+#' @title G_T_chr_plot
 #'
 #' @description Generates Genome CNV and Transcriptome Expression plots by chromsome from previously generated segmentation files.
 #'

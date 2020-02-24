@@ -1,4 +1,4 @@
-#' @title barman
+#' @title qc_plots
 #'
 #' @description plots total_counts total_features_by_counts, mt% and ercc% for given counts matrix
 #'

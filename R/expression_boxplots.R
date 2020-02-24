@@ -1,4 +1,4 @@
-#' @title barman
+#' @title expression_boxplots
 #'
 #' @description Generates per chromosome boxplots for the mean expression for each gene, grouped by chromosome
 #'
@@ -6,7 +6,7 @@
 #' @param control_group  list of column names corresponding to samples we want to use to show the mean expression over control cells
 #' @param counts_matrix counts matrix with expression we want to plot, needs to already be normalised
 #'
-#' @return Nothing
+#' @return ggplot2 object
 #'
 #' @export
 expression_boxplots <- function(experimental_group, control_group, counts_matrix) {

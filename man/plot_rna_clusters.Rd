@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_rna_clusters.R
 \name{plot_rna_clusters}
 \alias{plot_rna_clusters}
-\title{barman}
+\title{plot_rna_clusters}
 \usage{
 plot_rna_clusters(
   normalised_SCE_object,

@@ -1,4 +1,4 @@
-#' @title barman
+#' @title bulk_get_expression_by_segment
 #'
 #' @description runs the get_expression_by_segment function for a whole directory of scCNV segment files
 #'

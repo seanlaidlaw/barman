@@ -2,7 +2,7 @@
 % Please edit documentation in R/expression_boxplots.R
 \name{expression_boxplots}
 \alias{expression_boxplots}
-\title{barman}
+\title{expression_boxplots}
 \usage{
 expression_boxplots(experimental_group, control_group, counts_matrix)
 }
@@ -14,7 +14,7 @@ expression_boxplots(experimental_group, control_group, counts_matrix)
 \item{counts_matrix}{counts matrix with expression we want to plot, needs to already be normalised}
 }
 \value{
-Nothing
+ggplot2 object
 }
 \description{
 Generates per chromosome boxplots for the mean expression for each gene, grouped by chromosome

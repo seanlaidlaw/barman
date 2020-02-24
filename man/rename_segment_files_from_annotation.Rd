@@ -2,7 +2,7 @@
 % Please edit documentation in R/rename_segment_files_from_annotation.R
 \name{rename_segment_files_from_annotation}
 \alias{rename_segment_files_from_annotation}
-\title{barman}
+\title{rename_segment_files_from_annotation}
 \usage{
 rename_segment_files_from_annotation(
   segment_files_dir,
