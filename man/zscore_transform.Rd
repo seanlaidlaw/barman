@@ -4,18 +4,16 @@
 \alias{zscore_transform}
 \title{barman}
 \usage{
-zscore_transform(all_cells_to_normalise, control_groups, counts_matrix)
+zscore_transform(all_cells_to_normalise, counts_matrix)
 }
 \arguments{
 \item{all_cells_to_normalise}{list of column names that we want to zscore transform}
 
-\item{control_groups}{(optional) list of column names corresponding to samples we want to use for mean and SD calculations, in case we only want to calculate average expression from a control group.}
-
 \item{counts_matrix}{counts matrix with normally distrubted data}
 }
 \value{
-Nothing
+zscore transformed counts matrix
 }
 \description{
-apply a zscore transformation to a list of columns based on average and SD of a control list of column names. Zscore should only be applied on counts matrix containing values that follow a normal distribution.
+apply a zscore transformation to a list of columns based on average and SD of a column names provided by all_cells_to_normalise arg. Zscore should only be applied on counts matrix containing values that follow a normal distribution.
 }
