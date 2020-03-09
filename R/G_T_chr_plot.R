@@ -7,6 +7,7 @@
 #' @param title Plot title
 #' @param save boolean to specify if the plot should be generated or saved as PNG. If set to TRUE, the plot will be saved as the specified title.
 #' @param highlight_gene name of a gene to show in red on G_T_chr_plot, allows visualisation of copy number for a specific gene
+#' @param chromosomes optional list of chromosomes to plot, defaults to all chromosomes
 #'
 #' @return a ggplot2 object or nothing if save==TRUE
 #'
@@ -78,7 +79,8 @@ get_copynumber_for_gene = function(dna_segments, chr, start, end, gene_name) {
 
 
 #' @export
-G_T_chr_plot <- function(cnv_data, exp_data, highlight_gene, title, save) {
+G_T_chr_plot <- function(cnv_data, exp_data, chromosomes=NA, highlight_gene, title, save) {
+
 	if (missing(save)) {
 		save = FALSE
 	}
@@ -91,6 +93,10 @@ G_T_chr_plot <- function(cnv_data, exp_data, highlight_gene, title, save) {
 		highlight_genes_info = get_copynumber_for_gene(cnv_data, gene_name = highlight_gene)
 
 	}
+	if (is.na(chromosomes)) {
+		# if no chromosome argument provided, use all
+		chromosomes = paste0("chr",unique(cnv_data$Chr))
+	}
 
 
 	cnv_data$Chr <- paste0("chr", cnv_data$Chr)
@@ -102,7 +108,7 @@ G_T_chr_plot <- function(cnv_data, exp_data, highlight_gene, title, save) {
 	exp_data$Chr <- paste0("chr", exp_data$Chr)
 	exp_data_upper_cutoff <- mean(exp_data$PCFexp) + signif(sd(exp_data$SegmentExp) * 3, digits = 2)
 	exp_data <- exp_data[exp_data$SegmentExp <= exp_data_upper_cutoff, ]
-}
+	}
 
 	dna_r0 <- 0
 	dna_r1 <- 0.9
@@ -113,17 +119,19 @@ G_T_chr_plot <- function(cnv_data, exp_data, highlight_gene, title, save) {
 		png(paste0(title, ".png"), width = 5120, height = 1600, units = "px", res = 300)
 	}
 
+	# by default use plot type 3 (2 data panels), but if we only have DNA or only RNA then only use 1 data panel (plot type 4)
 	karyoplotr_plottype = 3
 	if (missing(exp_data) | missing(cnv_data)) {
 		karyoplotr_plottype = 4
 	}
 
 	# TODO: add kpAddLabels() for xlab and ylabs and add kpAddMainTitle() for main title
-	kp <- karyoploteR::plotKaryotype(genome = "hg19", plot.type = karyoplotr_plottype, cex = 0.85, main = gsub(".*__", "", title))
+	kp <- karyoploteR::plotKaryotype(genome = "hg19", chromosomes = chromosomes, plot.type = karyoplotr_plottype, cex = 0.85, main = gsub(".*__", "", title))
 	karyoploteR::kpDataBackground(kp, data.panel = 2, r0 = dna_r1, r1 = dna_r0)
-	karyoploteR::kpAxis(karyoplot = kp, col = "gray50", data.panel = 2, ymin = 0, ymax = cnv_data_upper_cutoff, r1 = dna_r0, r0 = dna_r1, cex = 0.5, numticks = 10, side = 2)
+	karyoploteR::kpAxis(karyoplot = kp, col = "gray50", data.panel = 2, ymin = 0, ymax = cnv_data_upper_cutoff, r1 = dna_r0, r0 = dna_r1, cex = 0.5, tick.pos = c(0,1,2,3,4), side = 2)
 	karyoploteR::kpPoints(kp, chr = cnv_data$Chr, x = cnv_data$Pos, y = cnv_data$rawCN, col = "#00A6EDAA", data.panel = 2, ymin = 0, ymax = cnv_data_upper_cutoff, r0 = dna_r1, r1 = dna_r0, clipping = T)
 	karyoploteR::kpSegments(karyoplot = kp, data.panel = 2, chr = cnv_data$Chr, x0 = cnv_data$Pos, x1 = cnv_data$end, y0 = cnv_data$segmentedCN, y1 = cnv_data$segmentedCN, ymin = 0, ymax = cnv_data_upper_cutoff, r0 = dna_r1, r1 = dna_r0, clipping = T, col = "black", lwd = 3)
+
 	if (!missing(highlight_gene)) {
 		if (length(highlight_genes_info) == 7) {
 			# if all the columns we expect are there
@@ -140,14 +148,14 @@ G_T_chr_plot <- function(cnv_data, exp_data, highlight_gene, title, save) {
 	}
 
 
-	karyoploteR::kpText(karyoplot = kp, data.panel = 2, chr = "chr1", y = 0.283, x = 0, labels = "Copy Number\n\n", srt = 90, cex = 0.8)
+#	karyoploteR::kpText(karyoplot = kp, data.panel = 2, chr = "chr1", y = 0.283, x = 0, labels = "Copy Number\n\n", srt = 90, cex = 0.8)
 
 	if (!missing(exp_data)) {
 		karyoploteR::kpDataBackground(kp, data.panel = 1, r0 = rna_r0, r1 = rna_r1)
 		karyoploteR::kpAxis(karyoplot = kp, col = "gray50", data.panel = 1, ymin = round(min(exp_data$SegmentExp)), ymax = exp_data_upper_cutoff, r1 = rna_r1, r0 = rna_r0, cex = 0.5, numticks = 10, side = 2)
 		karyoploteR::kpPoints(kp, chr = exp_data$Chr, x = exp_data$Start, y = exp_data$SegmentExp, col = "#FFBD07AA", data.panel = 1, ymin = round(min(exp_data$SegmentExp)), ymax = exp_data_upper_cutoff, r0 = rna_r0, r1 = rna_r1, clipping = T)
 		karyoploteR::kpSegments(karyoplot = kp, data.panel = 1, chr = exp_data$Chr, x0 = exp_data$Start, x1 = exp_data$End, y0 = exp_data$PCFexp, y1 = exp_data$PCFexp, ymin = round(min(exp_data$SegmentExp)), ymax = exp_data_upper_cutoff, r0 = rna_r0, r1 = rna_r1, clipping = T, col = "black", lwd = 3)
-		karyoploteR::kpText(karyoplot = kp, data.panel = 1, chr = "chr1", y = 0.3, x = 0, labels = "Segmented Expression\n\n", srt = 90, cex = 0.8)
+	#	karyoploteR::kpText(karyoplot = kp, data.panel = 1, chr = "chr1", y = 0.3, x = 0, labels = "Segmented Expression\n\n", srt = 90, cex = 0.8)
 	}
 
 	if (save) {

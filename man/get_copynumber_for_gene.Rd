@@ -16,6 +16,8 @@ get_copynumber_for_gene(dna_segments, chr, start, end, gene_name)
 \item{save}{boolean to specify if the plot should be generated or saved as PNG. If set to TRUE, the plot will be saved as the specified title.}
 
 \item{highlight_gene}{name of a gene to show in red on G_T_chr_plot, allows visualisation of copy number for a specific gene}
+
+\item{chromosomes}{optional list of chromosomes to plot, defaults to all chromosomes}
 }
 \value{
 a ggplot2 object or nothing if save==TRUE

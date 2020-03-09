@@ -4,7 +4,12 @@
 \alias{bulk_G_T_chr_plots}
 \title{bulk_G_T_chr_plots}
 \usage{
-bulk_G_T_chr_plots(dna_segments_dir, rna_segments_dir, threads)
+bulk_G_T_chr_plots(
+  dna_segments_dir,
+  rna_segments_dir,
+  chromosomes = NA,
+  threads
+)
 }
 \arguments{
 \item{dna_segments_dir}{folder of CNV segment files from scCNV or converted from ASCAT with ascat2sccnvseg()}

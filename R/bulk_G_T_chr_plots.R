@@ -9,7 +9,7 @@
 #' @return Nothing
 #'
 #' @export
-bulk_G_T_chr_plots <- function(dna_segments_dir, rna_segments_dir, threads) {
+bulk_G_T_chr_plots <- function(dna_segments_dir, rna_segments_dir, chromosomes=NA, threads) {
   if (!missing(dna_segments_dir)) {
     # make sure dna_segments_dir isnt empty
     if (length(list.files(dna_segments_dir)) < 1) {
