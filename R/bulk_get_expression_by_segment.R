@@ -15,6 +15,10 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 	# get list of samplenames from counts_matrix header
 	cell_sample_names = colnames(counts_matrix)[!(colnames(counts_matrix) %in% c("Geneid","Chr","Start","End","Strand","Length"))]
 
+	# coerce counts_matrix Start and End cols to be integers to avoid problems downstream
+	counts_matrix$Start = as.integer(counts_matrix$Start)
+	counts_matrix$End = as.integer(counts_matrix$End)
+
 	# make sure dna_segments_dir isnt empty
 	if (length(list.files(dna_segments_dir)) < 1) {
 		print("Error: dna_segments_dir argument is an empty folder")
