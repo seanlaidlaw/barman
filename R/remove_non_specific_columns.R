@@ -19,13 +19,15 @@ remove_non_specific_annotation_columns <- function(annotation_table, exclude) {
 			print("Error: function was passed an exclude option but it wasnt in list format: e.g. c('Col1','Col2')")
 			return(NA)
 		}
+	} else {
+		exclude = NA
 	}
 
 
 
 	for (i in colnames(annotation_table)) {
 		if (length(unique(annotation_table[[i]])) == 1) {
-			if (!(i %in% exclude)) {
+			if (is.na(exclude) | !(i %in% exclude)) {
 				annotation_table[[i]] = NULL
 			}
 		}
@@ -33,7 +35,7 @@ remove_non_specific_annotation_columns <- function(annotation_table, exclude) {
 	for (i in colnames(annotation_table)) {
 		if (all(is.numeric(annotation_table[[i]])) == FALSE) {
 			if (length(unique(annotation_table[[i]])) == length(annotation_table[[i]])) {
-				if (!(i %in% exclude)) {
+			if (is.na(exclude) | !(i %in% exclude)) {
 					annotation_table[[i]] = NULL
 				}
 			}
