@@ -1,12 +1,18 @@
 destination: docs
+
+template:
+  params:
+    bootswatch: united
+
+
+authors:
+    Sean Laidlaw:
+        href: https://seanlaidlaw.com
+    Rahbari Group:
+        href: https://www.sanger.ac.uk/science/groups/rahbari-group
+
 repo:
   url:
     home: https://github.com/seanlaidlaw/barman/
     source: https://github.com/seanlaidlaw/barman/blob/master/
     issue: https://github.com/seanlaidlaw/barman/issues/
-authors:
-    Sean L Laidlaw:
-        href: https://seanlaidlaw.com
-template:
-  params:
-    bootswatch: united
