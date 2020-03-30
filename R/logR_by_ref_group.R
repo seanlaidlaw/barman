@@ -36,7 +36,7 @@ logR_by_ref_group <- function(fpkm_counts, reference_cells) {
 	# read columns back
 	cell_ids = colnames(log_r_dataframe)
 	log_r_dataframe$Geneid = rownames(log_r_dataframe)
-	merged_logr = merge(log_r_dataframe, raw_counts_matrix[,c("Geneid","Chr","Start","End","Strand","Length")]
+	merged_logr = merge(log_r_dataframe, fpkm_counts[,c("Geneid","Chr","Start","End","Strand","Length")]
 	, by = "Geneid")
 	merged_logr = merged_logr[,c("Geneid","Chr","Start","End","Strand","Length",cell_ids)]
 
