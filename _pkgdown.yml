@@ -1,0 +1,12 @@
+destination: docs
+repo:
+  url:
+    home: https://github.com/seanlaidlaw/barman/
+    source: https://github.com/seanlaidlaw/barman/blob/master/
+    issue: https://github.com/seanlaidlaw/barman/issues/
+authors:
+    Sean L Laidlaw:
+        href: https://seanlaidlaw.com
+template:
+  params:
+    bootswatch: united

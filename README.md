@@ -1,5 +1,5 @@
 # Barman
-![](img/barman_logo.png)
+![](https://github.com/seanlaidlaw/barman/blob/master/img/barman_logo.png?raw=true)
 
 Barman is an R library for easy data preprocessing and visualization of Genome and Transcriptome single-cell data.
 
