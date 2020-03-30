@@ -4,16 +4,13 @@
 \alias{logR_by_ref_group}
 \title{logR_by_ref_group}
 \usage{
-logR_by_ref_group(raw_counts_matrix, reference_cells, manual_filter = FALSE)
+logR_by_ref_group(fpkm_counts, reference_cells)
 }
 \arguments{
-\item{raw_counts_matrix}{a counts matrix with no normalisation}
+\item{fpkm_counts}{a normalized counts matrix}
 
 \item{reference_cells}{a list of strings corresponding to column names in counts matrix. These are
 the names of cells we will use as a reference group}
-
-\item{manual_filter}{optional list of values to pass to the internal filter_and_normalise_scRNA
-function to filter out poor quality samples before calculating log fold change}
 }
 \value{
 a counts matrix containing log fold change values between specified reference cells and
