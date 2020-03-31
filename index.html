@@ -141,7 +141,7 @@ A01_expression_segments = get_expression_by_segment("Cell_A01", fpkm_matrix, scC
 <p>This can also be done in bulk, without having to read in the scCNV produced segment files by using the <code>bulk_get_expression_by_segment</code> function. this function uses all available cores except one to process the files in parallel.</p>
 <pre><code><a href="reference/bulk_get_expression_by_segment.html">bulk_get_expression_by_segment(fpkm_matrix, "./Path_to_scCNV_outputs/", "./RNA_seg_output_folder")</a></code></pre>
 <p>Finally, we can see the Genome and Transcriptome segment plot, showing the DNA to RNA comparison by running the <code>G_T_chr_plot</code> function.</p>
-<pre><code>G_T_chr_plot(cnv_data = scCNV_segment_for_A01, exp_data = A01_expression_segments, title = "Cell A01 Genome and Transcriptome")</code></pre>
+<pre><code><a href="reference/G_T_chr_plot.html">G_T_chr_plot(cnv_data = scCNV_segment_for_A01, exp_data = A01_expression_segments, title = "Cell A01 Genome and Transcriptome")</a></code></pre>
 </div>
 </div>
   </div>
