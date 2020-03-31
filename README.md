@@ -5,13 +5,50 @@ Barman is an R library for easy data preprocessing and visualization of Genome a
 
 
 ## Installation
-Barman is still under active development, as such installation is done via this git repository.
+Barman is still under active development, as such installation is done via the actively maintained [git repository](https://github.com/seanlaidlaw/barman)
 
 ```
-library(devtools)
-install_git(url = "https://gitlab.internal.sanger.ac.uk/sl31/barman")
+devtools::install_github("seanlaidlaw/barman")
 ```
 
+## Standard workflow
+
+Starting from a gene x cell counts matrix barman functions can be used in the following order to
+achieve a standard workflow:
+
+```
+                +------------------------------+
+                |       RNA Counts Matrix      |
+                +--------------+---------------+
+                               |
+                               |
+                               |                           +-----+
+                               v                                 |
+                +--------------+---------------+                 |
+                | filter_and_normalise_scrna() |                 |
+                +--------------+---------------+                 +
+                               |                              counts
+                               v                           normalisation
+                +--------------+---------------+                 +
+                |      logR_by_ref_group()     |                 |
+                +---------+---------+----------+                 |
+                          |         |                            |
+                          |         |                      +-----+
+                          |   OR    |
+                          |         |                      +-----+
+                          v         v                            |
++-------------------------+-+    +--+------------------------+   |
+|   expression_boxplots()   |    |get_expression_by_segment()|   |
++---------------------------+    +-------------+-------------+   |
+                                               |                 |
+                                               |           visualisation
+                                               v                 |
+                                 +-------------+-------------+   |
+                                 |       G_T_chr_plot()      |   |
+                                 +---------------------------+   |
+                                                                 |
+                                                           +-----+
+```
 
 ## Quick Start
 
@@ -49,6 +86,16 @@ We can see the difference in the QC by running the `qc_plots` function
 ```
 qc_plots(fpkm_matrix)
 ```
+
+
+We can also normalize based on a given reference group by using the `logR_by_ref_group` function to
+calculate the log fold change between a group of specified reference cells and the rest:
+
+```
+reference_group_cells = rownames(fpkm_matrix)[fpkm_matrix$cell_type = "control",]
+logFC_matrix = logR_by_ref_group(fpkm_matrix, reference_group_cells)
+```
+
 
 We can plot expression per chromosome of different cells by using the `expression_boxplots` function
 which accepts two lists of cell ids, one as an experimental group, and one as a control. From this

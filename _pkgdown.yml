@@ -16,3 +16,40 @@ repo:
     home: https://github.com/seanlaidlaw/barman/
     source: https://github.com/seanlaidlaw/barman/blob/master/
     issue: https://github.com/seanlaidlaw/barman/issues/
+
+reference:
+- title: "Tailoring input files"
+  desc: >
+    Functions to aid in customising the counts and annotation files before
+    starting analyses.
+- contents:
+  - rename_counts_matrix_from_annotation
+  - remove_non_specific_annotation_columns
+- title: "Counts matrix normalization"
+  desc: >
+    Functions to filter and apply different normalizations to the counts matrix
+- contents:
+  - filter_and_normalise_scRNA
+  - zscore_transform
+  - logR_by_ref_group
+- title: "Plotting RNA only"
+  desc: >
+    Functions to plot the normalized data
+- contents:
+  - qc_plots
+  - plot_rna_clusters
+  - expression_boxplots
+- title: "Generating RNA Segmentation from DNA data"
+  desc: >
+    Functions to plot the normalized data along with DNA segments from scCNV
+- contents:
+  - ascat2sccnvseg
+  - rename_segment_files_from_annotation
+  - get_expression_by_segment
+  - bulk_get_expression_by_segment
+- title: "G&T Plotting functions"
+  desc: >
+    Functions to plot the normalized data along with DNA segments from scCNV
+- contents:
+  - G_T_chr_plot
+  - bulk_G_T_chr_plots
