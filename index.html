@@ -75,8 +75,42 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Barman is still under active development, as such installation is done via this git repository.</p>
-<pre><code><a href="https://rdrr.io/pkg/devtools/man">library(devtools)
-install_git(url = "https://gitlab.internal.sanger.ac.uk/sl31/barman")</a></code></pre>
+<pre><code><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">devtools::install_github("seanlaidlaw/barman")</a></code></pre>
+</div>
+<div id="standard-workflow" class="section level2">
+<h2 class="hasAnchor">
+<a href="#standard-workflow" class="anchor"></a>Standard workflow</h2>
+<pre><code>                +------------------------------+
+                |       RNA Counts Matrix      |
+                +--------------+---------------+
+                               |
+                               |
+                               |                           +-----+
+                               v                                 |
+                +--------------+---------------+                 |
+                | filter_and_normalise_scrna() |                 |
+                +--------------+---------------+                 +
+                               |                              counts
+                               v                           normalisation
+                +--------------+---------------+                 +
+                |      logR_by_ref_group()     |                 |
+                +---------+---------+----------+                 |
+                          |         |                            |
+                          |         |                      +-----+
+                          |   OR    |
+                          |         |                      +-----+
+                          v         v                            |
++-------------------------+-+    +--+------------------------+   |
+|   expression_boxplots()   |    |get_expression_by_segment()|   |
++---------------------------+    +-------------+-------------+   |
+                                               |                 |
+                                               |           visualisation
+                                               v                 |
+                                 +-------------+-------------+   |
+                                 |       G_T_chr_plot()      |   |
+                                 +---------------------------+   |
+                                                                 |
+                                                           +-----+</code></pre>
 </div>
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
@@ -94,6 +128,9 @@ fpkm_matrix = filter_and_normalise_scrna(counts_matrix, manual_filter = list(c(1
 c(1000, 5000), 20, 50)) # filters out cells according to manual filters</code></pre>
 <p>We can see the difference in the QC by running the <code>qc_plots</code> function</p>
 <pre><code><a href="reference/qc_plots.html">qc_plots(fpkm_matrix)</a></code></pre>
+<p>We can also normalize based on a given reference group by using the <code>logR_by_ref_group</code> function to calculate the log fold change between a group of specified reference cells and the rest:</p>
+<pre><code>reference_group_cells = rownames(fpkm_matrix)[fpkm_matrix$cell_type = "control",]
+logFC_matrix = logR_by_ref_group(fpkm_matrix, reference_group_cells)</code></pre>
 <p>We can plot expression per chromosome of different cells by using the <code>expression_boxplots</code> function which accepts two lists of cell ids, one as an experimental group, and one as a control. From this it calcualtes the average expression per gene, and groupes by chromosome before plotting.</p>
 <pre><code>expression_boxplots(experimental_group = list("Cell_A01", "Cell_A02", "Cell_B03"), control_group =
 list("Cell_D03", "Cell_D04", "Cell_D05", fpkm_matrix)</code></pre>
