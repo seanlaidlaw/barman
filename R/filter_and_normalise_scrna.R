@@ -3,6 +3,7 @@
 #' @description filters out poor quality cells and features, and converts counts matrix to FPKM
 #'
 #' @param counts_matrix a raw counts matrix from featureCounts
+#' @param output_dir output directory to save plots
 #' @param annotation_table an annotation table
 #' @param return_sce boolean to return SCE object instead of matrix
 #' @param manual_filter vector of 4 values, manually specifying upper cutoffs to apply for total counts. e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, pct mt, and pct ercc respectively. Also accepts lists instead of ints, where the first element of list is lower cutoff and second is upper cutoff.
@@ -11,7 +12,7 @@
 #' @return normalized counts matrix
 #'
 #' @export
-filter_and_normalise_scRNA <- function(counts_matrix, annotation_table=FALSE, return_sce=FALSE, manual_filter=FALSE, filter_only=FALSE) {
+filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", annotation_table=FALSE, return_sce=FALSE, manual_filter=FALSE, filter_only=FALSE) {
 
 	trimmed_counts_matrix = counts_matrix
 	rownames(trimmed_counts_matrix) = trimmed_counts_matrix$Geneid
@@ -72,12 +73,11 @@ filter_and_normalise_scRNA <- function(counts_matrix, annotation_table=FALSE, re
 
 		fc_sce$use <- !(fc_sce$outlier)
 
-		qcplt4 <- scater::plotReducedDim(
+		qcplt4 <- scater::plotPCA(
 			fc_sce,
-			use_dimred = "PCA_coldata",
-			size_by = "total_features_by_counts",
 			colour_by = "use")
-		print(qcplt4)
+
+		ggplot2::ggsave(paste0(output_dir,"/PCA_filter.png"), qcplt4)
 
 	} else {
 		# apply manual cutoffs
