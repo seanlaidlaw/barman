@@ -10,7 +10,7 @@
 #' @param highlight_gene name of a gene to show in red on G_T_chr_plot, allows visualisation of copy number for a specific gene
 #' @param chromosomes optional list of chromosomes to plot, defaults to all chromosomes
 #'
-#' @return a ggplot2 object or nothing if save==TRUE
+#' @return a plot object or nothing if save==TRUE
 #'
 #' @export
 G_T_chr_plot <- function(cnv_data, exp_data, chromosomes=NA, output_dir="./", highlight_gene, title, save) {
