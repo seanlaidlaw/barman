@@ -4,12 +4,13 @@
 #'
 #' @param dna_segments_dir folder of CNV segment files from scCNV or converted from ASCAT with ascat2sccnvseg()
 #' @param rna_segments_dir folder of expression segment files, from get_expression_by_segment()
+#' @param output_dir directory where the plots will be saved
 #' @param threads number of threads to run concurrently (defaults to number of avaliable cores minus 1)
 #'
 #' @return Nothing
 #'
 #' @export
-bulk_G_T_chr_plots <- function(dna_segments_dir, rna_segments_dir, chromosomes=NA, threads) {
+bulk_G_T_chr_plots <- function(dna_segments_dir, rna_segments_dir, output_dir="./", chromosomes=NA, threads) {
   if (!missing(dna_segments_dir)) {
     # make sure dna_segments_dir isnt empty
     if (length(list.files(dna_segments_dir)) < 1) {
