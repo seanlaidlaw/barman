@@ -27,6 +27,8 @@ get_expression_by_segment <- function(cell_id, counts_matrix, segment_file) {
 	}
 
 
+	# create a NA matrix of same size as DNA segmentation file so we can replace individual fields
+	# with RNA values
 	segmented_expression_table = data.frame(matrix(rep(NA,nrow(segment_file)*4),nrow(segment_file),4))
 	colnames(segmented_expression_table) = c("Chr", "Start", "SegmentExp", "End")
 
@@ -45,6 +47,10 @@ get_expression_by_segment <- function(cell_id, counts_matrix, segment_file) {
 
 	# remove NA values from table
 	segmented_expression_table = segmented_expression_table[!is.na(segmented_expression_table$SegmentExp),]
+	if (dim(segmented_expression_table)[1] < 1) {
+		warning(paste0("sample ", cell_id, " only has NA segments, skipping..."))
+		return(NA)
+	}
 
 
 	PCFexp = copynumber::pcf(subset(segmented_expression_table, select = c("Chr", "Start", "SegmentExp")), gamma = 15)

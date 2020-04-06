@@ -63,7 +63,9 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 		rna_seg = get_expression_by_segment(cell_id = sample_name, counts_matrix = counts_matrix, segment_file = dna_seg)
 
 		# write to output folder for further analysis later
-		write.table(rna_seg, paste0(output_dir, "/", "RNAsegments_", sample_name, "_from_DNA_segments.tsv"), sep = "\t", row.names = F, col.names = T)
+		if (!is.na(rna_seg)) {
+			write.table(rna_seg, paste0(output_dir, "/", "RNAsegments_", sample_name, "_from_DNA_segments.tsv"), sep = "\t", row.names = F, col.names = T)
+		}
 	}
 
 	#setup parallel backend to use many processors
