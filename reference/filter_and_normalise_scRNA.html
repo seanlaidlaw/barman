@@ -119,6 +119,7 @@
 
     <pre class="usage"><span class='fu'>filter_and_normalise_scRNA</span>(
   <span class='no'>counts_matrix</span>,
+  <span class='kw'>output_dir</span> <span class='kw'>=</span> <span class='st'>"./"</span>,
   <span class='kw'>annotation_table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>return_sce</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>manual_filter</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -131,6 +132,10 @@
     <tr>
       <th>counts_matrix</th>
       <td><p>a raw counts matrix from featureCounts</p></td>
+    </tr>
+    <tr>
+      <th>output_dir</th>
+      <td><p>output directory to save plots</p></td>
     </tr>
     <tr>
       <th>annotation_table</th>
