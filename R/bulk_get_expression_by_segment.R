@@ -53,11 +53,10 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 
 	# Define a function where the heavy lifting happens, that can be easily inserted into a foreach loop to parallelise
 	parallel_seg_counter = function(sample_name) {
-		print(sample_name)
 
 		# read in DNA segment file
-		dna_seg_filename = list.files(dna_segments_dir)[grepl(paste0(".*?",sample_name, ".*"), list.files(dna_segments_dir))]
-		dna_seg = read.table(paste0(dna_segments_dir,"/",dna_seg_filename), header = T, sep = "\t", stringsAsFactors = F)
+		dna_seg_filename = list.files(dna_segments_dir, full.names=T)[grepl(paste0(".*?",sample_name, ".*"), list.files(dna_segments_dir, full.names=T))]
+		dna_seg = read.table(dna_seg_filename, header = T, sep = "\t", stringsAsFactors = F)
 
 		# get RNA expression for each segment of the segmented DNA
 		rna_seg = get_expression_by_segment(cell_id = sample_name, counts_matrix = counts_matrix, segment_file = dna_seg)
