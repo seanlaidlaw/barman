@@ -84,19 +84,19 @@ filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", annotatio
 
 
 		if (length(manual_filter[[1]]) > 1) {
-			total_features_by_counts = fc_sce$total_features_by_counts >= manual_filter[[1]][1] & fc_sce$total_features_by_counts <= manual_filter[[1]][2]
+			total_features_by_counts = as.numeric(fc_sce$total_features_by_counts) >= as.numeric(manual_filter[[1]][1]) & fc_sce$total_features_by_counts <= as.numeric(manual_filter[[1]][2])
 		} else {
-			total_features_by_counts = fc_sce$total_features_by_counts <= manual_filter[[1]]
+			total_features_by_counts = as.numeric(fc_sce$total_features_by_counts) <= as.numeric(manual_filter[[1]])
 		}
 		if (length(manual_filter[[2]]) > 1) {
-			total_counts = fc_sce$total_counts >= manual_filter[[2]][1] & fc_sce$total_counts <= manual_filter[[2]][2]
+			total_counts = as.numeric(fc_sce$total_counts) >= as.numeric(manual_filter[[2]][1]) & fc_sce$total_counts <= as.numeric(manual_filter[[2]][2])
 		} else {
-			total_counts = fc_sce$total_counts <= manual_filter[[2]]
+			total_counts = as.numeric(fc_sce$total_counts) <= as.numeric(manual_filter[[2]])
 		}
-		pct_counts_MT = fc_sce$pct_counts_MT <= manual_filter[[3]]
-		pct_counts_ERCC = fc_sce$pct_counts_ERCC <= manual_filter[[4]]
+		pct_counts_MT = as.numeric(fc_sce$pct_counts_MT) <= as.numeric(manual_filter[[3]])
+		pct_counts_ERCC = as.numeric(fc_sce$pct_counts_ERCC) <= as.numeric(manual_filter[[4]])
 
-		fc_sce$use <-(pct_counts_ERCC & pct_counts_MT & total_counts & total_features_by_counts )
+		fc_sce$use <-(pct_counts_ERCC & pct_counts_MT & total_counts & total_features_by_counts)
 
 		fc_sce <- scater::runPCA(
 			fc_sce,
