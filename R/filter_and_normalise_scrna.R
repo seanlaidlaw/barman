@@ -73,11 +73,11 @@ filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", annotatio
 
 		fc_sce$use <- !(fc_sce$outlier)
 
-		qcplt4 <- scater::plotPCA(
+		qc_pca_plot <- scater::plotPCA(
 			fc_sce,
 			colour_by = "use")
 
-		ggplot2::ggsave(paste0(output_dir,"/PCA_filter.png"), qcplt4)
+		ggplot2::ggsave(paste0(output_dir,"/PCA_filter.png"), qc_pca_plot)
 
 	} else {
 		# apply manual cutoffs
@@ -103,12 +103,11 @@ filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", annotatio
 			use_coldata = TRUE,
 		)
 
-		qcplt4 <- scater::plotReducedDim(
+		qc_pca_plot <- scater::plotPCA(
 			fc_sce,
-			use_dimred = "PCA_coldata",
-			size_by = "total_features_by_counts",
 			colour_by = "use")
-		print(qcplt4)
+
+		ggplot2::ggsave(paste0(output_dir,"/PCA_filter.png"), qc_pca_plot)
 	}
 
 
