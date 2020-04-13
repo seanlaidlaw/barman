@@ -49,8 +49,8 @@ filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", annotatio
 				 "ENSG00000198727","ENSG00000210195","ENSG00000210196")
 
 
-	SingleCellExperiment::isSpike(fc_sce, "MT") = grepl("ERCC-", rownames(fc_sce))
-	SingleCellExperiment::isSpike(fc_sce, "ERCC") = rownames(fc_sce) %in% mt_genes
+	SingleCellExperiment::isSpike(fc_sce, "ERCC") = grepl("ERCC-", rownames(fc_sce))
+	SingleCellExperiment::isSpike(fc_sce, "MT") = rownames(fc_sce) %in% mt_genes
 
 	fc_sce <- scater::calculateQCMetrics(fc_sce,
 		feature_controls = list(
