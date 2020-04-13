@@ -82,19 +82,30 @@ filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", annotatio
 	} else {
 		# apply manual cutoffs
 
-
+		# if two numbers given then use the first as a lower and second as a higher cutoff
 		if (length(manual_filter[[1]]) > 1) {
 			total_features_by_counts = as.numeric(fc_sce$total_features_by_counts) >= as.numeric(manual_filter[[1]][1]) & fc_sce$total_features_by_counts <= as.numeric(manual_filter[[1]][2])
 		} else {
 			total_features_by_counts = as.numeric(fc_sce$total_features_by_counts) <= as.numeric(manual_filter[[1]])
 		}
+
 		if (length(manual_filter[[2]]) > 1) {
 			total_counts = as.numeric(fc_sce$total_counts) >= as.numeric(manual_filter[[2]][1]) & fc_sce$total_counts <= as.numeric(manual_filter[[2]][2])
 		} else {
 			total_counts = as.numeric(fc_sce$total_counts) <= as.numeric(manual_filter[[2]])
 		}
-		pct_counts_MT = as.numeric(fc_sce$pct_counts_MT) <= as.numeric(manual_filter[[3]])
-		pct_counts_ERCC = as.numeric(fc_sce$pct_counts_ERCC) <= as.numeric(manual_filter[[4]])
+
+		if (length(manual_filter[[3]]) > 1) {
+			pct_counts_MT = as.numeric(fc_sce$pct_counts_MT) >= as.numeric(manual_filter[[3]][1]) & fc_sce$pct_counts_MT <= as.numeric(manual_filter[[3]][2])
+		} else {
+			pct_counts_MT = as.numeric(fc_sce$pct_counts_MT) <= as.numeric(manual_filter[[3]])
+		}
+
+		if (length(manual_filter[[4]]) > 1) {
+			pct_counts_ERCC = as.numeric(fc_sce$pct_counts_ERCC) >= as.numeric(manual_filter[[4]][1]) & fc_sce$pct_counts_ERCC <= as.numeric(manual_filter[[4]][2])
+		} else {
+			pct_counts_ERCC = as.numeric(fc_sce$pct_counts_ERCC) <= as.numeric(manual_filter[[4]])
+		}
 
 		fc_sce$use <-(pct_counts_ERCC & pct_counts_MT & total_counts & total_features_by_counts)
 
