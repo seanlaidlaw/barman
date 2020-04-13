@@ -88,21 +88,22 @@ bulk_G_T_chr_plots <- function(dna_segments_dir, rna_segments_dir, output_dir=".
   cores_cluster <- parallel::makeCluster(threads) # not to overload your computer
   doParallel::registerDoParallel(cores_cluster)
 
+
+  # if RNA or DNA segment folder not provided then generate plots from the only provided segment folder
   run_DNA = TRUE
   run_RNA = TRUE
 
   if (missing(rna_segments_dir)) {
   	run_RNA = FALSE
   }
+  if (missing(dna_segments_dir)) {
+  	run_DNA = FALSE
+  }
 
-  print(run_RNA)
 
   library(doParallel)
   foreach::foreach(i = 1:(length(sample_ids))) %dopar% {
-    library(barman)
-
-  	print(run_DNA)
-  	print(run_RNA)
+	library(barman)
 
 	parallel_seg_counter(sample_ids[i],run_DNA=run_DNA, run_RNA=run_RNA)
   }
