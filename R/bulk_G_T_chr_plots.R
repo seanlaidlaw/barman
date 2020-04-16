@@ -22,7 +22,7 @@ bulk_G_T_chr_plots <- function(dna_segments_dir, rna_segments_dir, output_dir=".
   if (!missing(rna_segments_dir)) {
     # make sure rna_segments_dir isnt empty
     if (length(list.files(rna_segments_dir)) < 1) {
-      print("Error: dna_segments_dir argument is an empty folder")
+      print("Error: rna_segments_dir argument is an empty folder")
       return(NA)
     }
   }
