@@ -64,6 +64,11 @@ filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", annotatio
 	fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "ERCC")]
 	fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "MT")]
 
+	# remove genes not expressed in any cell
+	keep_feature <- rowSums(SingleCellExperiment::counts(fc_sce) > 0) > 0
+	fc_sce <- fc_sce[keep_feature, ]
+
+
 	if (typeof(manual_filter) != "list") {
 		fc_sce <- scater::runPCA(
 			fc_sce,
@@ -126,7 +131,7 @@ filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", annotatio
 		fc_sce[,SingleCellExperiment::colData(fc_sce)$use],
 		byrow = TRUE,
 		detection_limit = 1
-	) >= 4
+	) >= 2
 
 	fc_sce <- fc_sce[keep_feature,]
 	fc_sce <- fc_sce[,fc_sce$use]
