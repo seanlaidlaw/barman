@@ -4,7 +4,15 @@
 \alias{G_T_chr_plot}
 \title{G_T_chr_plot}
 \usage{
-G_T_chr_plot(cnv_data, exp_data, chromosomes = NA, highlight_gene, title, save)
+G_T_chr_plot(
+  cnv_data,
+  exp_data,
+  chromosomes = NA,
+  output_dir = "./",
+  highlight_gene,
+  title,
+  save
+)
 }
 \arguments{
 \item{cnv_data}{a segmentation file produced by scCNV. Can also use an ASCAT.summary.csv if converted with the ascat2sccnvseg() function.}
@@ -13,6 +21,8 @@ G_T_chr_plot(cnv_data, exp_data, chromosomes = NA, highlight_gene, title, save)
 
 \item{chromosomes}{optional list of chromosomes to plot, defaults to all chromosomes}
 
+\item{output_dir}{output directory to store saved plots}
+
 \item{highlight_gene}{name of a gene to show in red on G_T_chr_plot, allows visualisation of copy number for a specific gene}
 
 \item{title}{Plot title}
@@ -20,7 +30,7 @@ G_T_chr_plot(cnv_data, exp_data, chromosomes = NA, highlight_gene, title, save)
 \item{save}{boolean to specify if the plot should be generated or saved as PNG. If set to TRUE, the plot will be saved as the specified title.}
 }
 \value{
-a ggplot2 object or nothing if save==TRUE
+a plot object or nothing if save==TRUE
 }
 \description{
 Generates Genome CNV and Transcriptome Expression plots by chromsome from previously generated segmentation files.

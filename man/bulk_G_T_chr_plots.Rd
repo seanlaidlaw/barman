@@ -7,6 +7,7 @@
 bulk_G_T_chr_plots(
   dna_segments_dir,
   rna_segments_dir,
+  output_dir = "./",
   chromosomes = NA,
   threads
 )
@@ -15,6 +16,8 @@ bulk_G_T_chr_plots(
 \item{dna_segments_dir}{folder of CNV segment files from scCNV or converted from ASCAT with ascat2sccnvseg()}
 
 \item{rna_segments_dir}{folder of expression segment files, from get_expression_by_segment()}
+
+\item{output_dir}{directory where the plots will be saved}
 
 \item{threads}{number of threads to run concurrently (defaults to number of avaliable cores minus 1)}
 }
