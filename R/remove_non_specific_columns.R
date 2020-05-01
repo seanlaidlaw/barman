@@ -10,6 +10,7 @@
 #' @export
 
 remove_non_specific_annotation_columns <- function(annotation_table, exclude) {
+	# exclude argument can be given as c("filename") or as "filename". make sure provided argument is either list or char format
 	if (!missing(exclude)) {
 		if (typeof(exclude) == "character") {
 			exclude = as.list(exclude)
@@ -24,22 +25,26 @@ remove_non_specific_annotation_columns <- function(annotation_table, exclude) {
 	}
 
 
-
+	# if a column in annotation table only contains one unique value then remove it
 	for (i in colnames(annotation_table)) {
-		if (length(unique(annotation_table[[i]])) == 1) {
-			if (is.na(exclude) | !(i %in% exclude)) {
-				annotation_table[[i]] = NULL
+		if (!(i %in% exclude)) {
+			if (length(unique(annotation_table[[i]])) == 1) {
+					annotation_table[[i]] = NULL
 			}
 		}
 	}
+
+
+	# if a column in annotation table only contains unique values then remove it
 	for (i in colnames(annotation_table)) {
-		if (all(is.numeric(annotation_table[[i]])) == FALSE) {
-			if (length(unique(annotation_table[[i]])) == length(annotation_table[[i]])) {
-			if (is.na(exclude) | !(i %in% exclude)) {
-					annotation_table[[i]] = NULL
+		if (!(i %in% exclude)) {
+			if (all(is.numeric(annotation_table[[i]])) == FALSE) {
+				if (length(unique(annotation_table[[i]])) == length(annotation_table[[i]])) {
+						annotation_table[[i]] = NULL
 				}
 			}
 		}
 	}
+
 	return(annotation_table)
 }
