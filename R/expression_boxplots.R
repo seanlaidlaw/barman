@@ -10,17 +10,18 @@
 #'
 #' @export
 expression_boxplots <- function(experimental_group, control_group, counts_matrix) {
+
   experimental_group <- experimental_group[experimental_group %in% colnames(counts_matrix)]
   control_group <- control_group[control_group %in% colnames(counts_matrix)]
 
 
   if (length(experimental_group) > 1) {
-  	counts_matrix$Experiemental_mean <- rowMeans(counts_matrix[, experimental_group], na.rm = T)
+  	counts_matrix$Experiemental_mean <- rowMeans(as.matrix(counts_matrix[, experimental_group]), na.rm = T)
   } else {
   	counts_matrix$Experiemental_mean = counts_matrix[, experimental_group]
   }
 
-  counts_matrix$Control_mean <- rowMeans(counts_matrix[, control_group], na.rm = T)
+  counts_matrix$Control_mean <- rowMeans(as.matrix(counts_matrix[, control_group]), na.rm = T)
 
   counts_matrix <- counts_matrix[, c("Chr", "Experiemental_mean", "Control_mean")]
   counts_matrix <- counts_matrix[counts_matrix$Chr %in% c(1:22, "X", "Y"), ]
