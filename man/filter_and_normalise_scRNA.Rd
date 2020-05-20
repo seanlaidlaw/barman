@@ -7,7 +7,6 @@
 filter_and_normalise_scRNA(
   counts_matrix,
   output_dir = "./",
-  annotation_table = FALSE,
   return_sce = FALSE,
   manual_filter = FALSE,
   filter_only = FALSE
@@ -17,8 +16,6 @@ filter_and_normalise_scRNA(
 \item{counts_matrix}{a raw counts matrix from featureCounts}
 
 \item{output_dir}{output directory to save plots}
-
-\item{annotation_table}{an annotation table}
 
 \item{return_sce}{boolean to return SCE object instead of matrix}
 
