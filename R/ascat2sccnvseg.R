@@ -9,8 +9,8 @@
 #' @export
 ascat2sccnvseg <- function(ascat_summary) {
 
-	if (length(colnames(tolly_dna_segment_file)) != 8 ) {
-		print(paste0("ERROR: expected 8 columns but only got: ", length(colnames(tolly_dna_segment_file)), ". Are you sure you provided an ASCAT summary table?"))
+	if (length(colnames(ascat_summary)) != 8 ) {
+		print(paste0("ERROR: expected 8 columns but only got: ", length(colnames(ascat_summary)), ". Are you sure you provided an ASCAT summary table?"))
 		return(NA)
 	}
 
