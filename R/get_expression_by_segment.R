@@ -13,16 +13,14 @@
 get_expression_by_segment <- function(cell_id, counts_matrix, segment_file) {
 
 	if (length(counts_matrix[[cell_id]]) == 0) {
-		print("Error: counts matrix either doesnt have column:'", cell_id, "' or it doesnt contain any values.")
-		return(NA)
+		stop("counts matrix either doesnt have column:'", cell_id, "' or it doesnt contain any values.")
 	}
 
 	counts_matrix_subset = counts_matrix[,c("Chr", "Start", "End", cell_id)]
 
 	for (numeric_column in c("Start", "End")) {
 		if (typeof(counts_matrix[[numeric_column]]) != "integer") {
-			print("Error: ",numeric_column," column is not an integer, can not proceed with segmentation. Please verify column only contains integers.")
-			return(NA)
+			stop(numeric_column," column is not an integer, can not proceed with segmentation. Please verify column only contains integers.")
 		}
 	}
 

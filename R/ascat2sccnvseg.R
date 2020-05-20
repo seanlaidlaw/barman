@@ -10,8 +10,7 @@
 ascat2sccnvseg <- function(ascat_summary) {
 
 	if (length(colnames(ascat_summary)) != 8 ) {
-		print(paste0("ERROR: expected 8 columns but only got: ", length(colnames(ascat_summary)), ". Are you sure you provided an ASCAT summary table?"))
-		return(NA)
+		stop(paste0("expected 8 columns but only got: ", length(colnames(ascat_summary)), ". Are you sure you provided an ASCAT summary table?"))
 	}
 
 	# from ascat confluence (https://confluence.sanger.ac.uk/display/IT/ASCAT+NGS) we want col 7 as CN

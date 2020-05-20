@@ -17,8 +17,7 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 
 	# make sure dna_segments_dir isnt empty
 	if (length(list.files(dna_segments_dir)) < 1) {
-		print("Error: dna_segments_dir argument is an empty folder")
-		return(NA)
+		stop("dna_segments_dir argument is an empty folder")
 	}
 
 	# make sure some files in dna_segments_dir match colnames of counts matrix
@@ -29,8 +28,7 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 		}
 	}
 	if (!anyfile) {
-		print("Error: No match was found between filenames in dna_segments_dir and column names in counts_matrix, verify that cell_ids are the same in column names of counts matrix and in DNA segment files.")
-		return(NA)
+		stop("No match was found between filenames in dna_segments_dir and column names in counts_matrix, verify that cell_ids are the same in column names of counts matrix and in DNA segment files.")
 	}
 
 
@@ -45,9 +43,9 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 		}
 	}
 	if (length(present_in_dna) == length(cell_sample_names)) {
-		print("Found all RNA names in DNA segments folder")
+		message("Found all RNA names in DNA segments folder")
 	} else {
-		print(paste0("Found ", length(present_in_dna), " DNA samples corresponding to ", length(cell_sample_names), " RNA names"))
+		message(paste0("Found ", length(present_in_dna), " DNA samples corresponding to ", length(cell_sample_names), " RNA names"))
 	}
 
 

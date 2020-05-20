@@ -14,16 +14,14 @@ bulk_G_T_chr_plots <- function(dna_segments_dir, rna_segments_dir, output_dir=".
   if (!missing(dna_segments_dir)) {
     # make sure dna_segments_dir isnt empty
     if (length(list.files(dna_segments_dir)) < 1) {
-      print("Error: dna_segments_dir argument is an empty folder")
-      return(NA)
+      stop("dna_segments_dir argument is an empty folder")
     }
   }
 
   if (!missing(rna_segments_dir)) {
     # make sure rna_segments_dir isnt empty
     if (length(list.files(rna_segments_dir)) < 1) {
-      print("Error: rna_segments_dir argument is an empty folder")
-      return(NA)
+      stop("rna_segments_dir argument is an empty folder")
     }
   }
 
@@ -43,7 +41,7 @@ bulk_G_T_chr_plots <- function(dna_segments_dir, rna_segments_dir, output_dir=".
   for (file in list.files(segments_dir)) {
   	sample_ids <- append(sample_ids, gsub("(_from_DNA_segments.tsv)|(-PCF-kmin.*copynumber.refLOCUS.NA.txt)", "", gsub("(SEGMENTSlogR.GCcorrected-M30-)|(RNAsegments_)", "", file)), length(sample_ids))
   }
-  print(paste0("Generating plots for samples : ", paste(names(sample_ids),sample_ids,sep=" ",collapse=";")))
+  message(paste0("Generating plots for samples : ", paste(names(sample_ids),sample_ids,sep=" ",collapse=";")))
 
 
 

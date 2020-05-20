@@ -25,8 +25,7 @@ rename_counts_matrix_from_annotation <- function(counts_matrix, annotation_table
 			}
 		}
 		if (rna_cell_id == "") {
-			print("Error: Couldn't automatically determine which column of annotation corresponded to colnames of counts matrix. please manually specify with the rna_cell_id argument")
-			return(NA)
+			stop("Couldn't automatically determine which column of annotation corresponded to colnames of counts matrix. please manually specify with the rna_cell_id argument")
 		}
 	}
 

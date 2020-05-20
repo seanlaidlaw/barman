@@ -17,8 +17,7 @@ remove_non_specific_annotation_columns <- function(annotation_table, exclude) {
 		}
 
 		if (typeof(exclude) != "list") {
-			print("Error: function was passed an exclude option but it wasnt in list format: e.g. c('Col1','Col2')")
-			return(NA)
+			stop("function was passed an exclude option but it wasnt in list format: e.g. c('Col1','Col2')")
 		}
 	} else {
 		exclude = NA

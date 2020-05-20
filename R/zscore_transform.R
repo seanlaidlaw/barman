@@ -16,8 +16,7 @@ zscore_transform <- function(all_cells_to_normalise, counts_matrix) {
 	# 	return(NA)
 	# }
 	if (!any(all_cells_to_normalise %in% colnames(counts_matrix))) {
-		print("Error: none of the cells in all_cells_to_normalise list are counts_matrix column names.")
-		return(NA)
+		stop("none of the cells in all_cells_to_normalise list are counts_matrix column names.")
 	}
 
 	zscore_counts <- counts_matrix

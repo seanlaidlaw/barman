@@ -25,7 +25,7 @@ get_copynumber_for_gene = function(dna_segments, chr, start, end, gene_name) {
 
 		}
 		if (nrow(new_gene_ids) < 1) {
-			print(paste0("Error: No matches found on biomaRt for gene_name:", gene_name))
+			stop(paste0("No matches found on biomaRt for gene_name:", gene_name))
 		}
 
 		chr = new_gene_ids$chromosome_name
@@ -34,8 +34,7 @@ get_copynumber_for_gene = function(dna_segments, chr, start, end, gene_name) {
 	} else {
 		# if no gene+name given make sure that chr start and end are given
 		if (missing(chr) | missing(start) | missing(end)) {
-			print("Error: Please either provide gene_name arg or chr,start,end arguments")
-			return(NA)
+			stop("Please either provide gene_name arg or chr,start,end arguments")
 		}
 	}
 
