@@ -5,17 +5,17 @@
 \title{plot_rna_clusters}
 \usage{
 plot_rna_clusters(
-  normalised_SCE_object,
-  regress_out = FALSE,
+  normalised_counts_matrix,
+  annotation_table,
   umap_vars = FALSE
 )
 }
 \arguments{
-\item{normalised_SCE_object}{a filtered and normalized SingleCellExperiement, like the type returned from running filter_and_normalise_scRNA() with the return_sce=T parameter.}
+\item{normalised_counts_matrix}{a filtered, normalized, and log transformed counts matrix}
 
-\item{regress_out}{a vector of colnames from annotation table, to regress out of dataset before plotting}
+\item{annotation_table}{a table of cell annotations, with  rows corresponding to colnames in normalised_counts_matrix}
 
-\item{umap_vars}{a vector of colnames from annotation table, to manually specifiy colour_by and size_by values respectively}
+\item{umap_vars}{a vector of 2 colnames from annotation table, to manually specifiy the plot's colour and size values respectively}
 }
 \value{
 ggplot2 object of UMAP
