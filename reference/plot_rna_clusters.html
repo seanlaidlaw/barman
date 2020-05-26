@@ -118,8 +118,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>plot_rna_clusters</span>(
-  <span class='no'>normalised_SCE_object</span>,
-  <span class='kw'>regress_out</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>normalised_counts_matrix</span>,
+  <span class='no'>annotation_table</span>,
   <span class='kw'>umap_vars</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -127,16 +127,16 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>normalised_SCE_object</th>
-      <td><p>a filtered and normalized SingleCellExperiement, like the type returned from running filter_and_normalise_scRNA() with the return_sce=T parameter.</p></td>
+      <th>normalised_counts_matrix</th>
+      <td><p>a filtered, normalized, and log transformed counts matrix</p></td>
     </tr>
     <tr>
-      <th>regress_out</th>
-      <td><p>a vector of colnames from annotation table, to regress out of dataset before plotting</p></td>
+      <th>annotation_table</th>
+      <td><p>a table of cell annotations, with  rows corresponding to colnames in normalised_counts_matrix</p></td>
     </tr>
     <tr>
       <th>umap_vars</th>
-      <td><p>a vector of colnames from annotation table, to manually specifiy colour_by and size_by values respectively</p></td>
+      <td><p>a vector of 2 colnames from annotation table, to manually specifiy the plot's colour and size values respectively</p></td>
     </tr>
     </table>
 

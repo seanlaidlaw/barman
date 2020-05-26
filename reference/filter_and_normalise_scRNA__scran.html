@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>filter_and_normalise_scRNA — filter_and_normalise_scRNA • barman</title>
+<title>filter_and_normalise_scRNA__scran — filter_and_normalise_scRNA__scran • barman</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="filter_and_normalise_scRNA — filter_and_normalise_scRNA" />
-<meta property="og:description" content="filters out poor quality cells and features, and converts counts matrix to FPKM" />
+<meta property="og:title" content="filter_and_normalise_scRNA__scran — filter_and_normalise_scRNA__scran" />
+<meta property="og:description" content="filters out poor quality cells and features, and converts counts matrix to scran normalized matrix" />
 
 
 
@@ -108,18 +108,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>filter_and_normalise_scRNA</h1>
-    <small class="dont-index">Source: <a href='https://github.com/seanlaidlaw/barman/blob/master/R/filter_and_normalise_scrna.R'><code>R/filter_and_normalise_scrna.R</code></a></small>
-    <div class="hidden name"><code>filter_and_normalise_scRNA.Rd</code></div>
+    <h1>filter_and_normalise_scRNA__scran</h1>
+    <small class="dont-index">Source: <a href='https://github.com/seanlaidlaw/barman/blob/master/R/filter_and_normalise_scrna__scran.R'><code>R/filter_and_normalise_scrna__scran.R</code></a></small>
+    <div class="hidden name"><code>filter_and_normalise_scRNA__scran.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>filters out poor quality cells and features, and converts counts matrix to FPKM</p>
+    <p>filters out poor quality cells and features, and converts counts matrix to scran normalized matrix</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_and_normalise_scRNA</span>(
+    <pre class="usage"><span class='fu'>filter_and_normalise_scRNA__scran</span>(
   <span class='no'>counts_matrix</span>,
   <span class='kw'>output_dir</span> <span class='kw'>=</span> <span class='st'>"./"</span>,
+  <span class='kw'>annotation_table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>return_sce</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>manual_filter</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>filter_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
@@ -137,6 +138,10 @@
       <td><p>output directory to save plots</p></td>
     </tr>
     <tr>
+      <th>annotation_table</th>
+      <td><p>an annotation table</p></td>
+    </tr>
+    <tr>
       <th>return_sce</th>
       <td><p>boolean to return SCE object instead of matrix</p></td>
     </tr>
@@ -152,7 +157,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>normalized counts matrix</p>
+    <p>scran normalized counts matrix (returns 'logcounts(sce)')</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
