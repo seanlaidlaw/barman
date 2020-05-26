@@ -120,8 +120,6 @@
     <pre class="usage"><span class='fu'>filter_and_normalise_scRNA__scran</span>(
   <span class='no'>counts_matrix</span>,
   <span class='kw'>output_dir</span> <span class='kw'>=</span> <span class='st'>"./"</span>,
-  <span class='kw'>annotation_table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>return_sce</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>manual_filter</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>filter_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
@@ -138,20 +136,20 @@
       <td><p>output directory to save plots</p></td>
     </tr>
     <tr>
-      <th>annotation_table</th>
-      <td><p>an annotation table</p></td>
-    </tr>
-    <tr>
-      <th>return_sce</th>
-      <td><p>boolean to return SCE object instead of matrix</p></td>
-    </tr>
-    <tr>
       <th>manual_filter</th>
       <td><p>vector of 4 values, manually specifying upper cutoffs to apply for total counts. e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, pct mt, and pct ercc respectively. Also accepts lists instead of ints, where the first element of list is lower cutoff and second is upper cutoff.</p></td>
     </tr>
     <tr>
       <th>filter_only</th>
       <td><p>boolean to return only filtered (i.e. non-fpkm normalized) matrix</p></td>
+    </tr>
+    <tr>
+      <th>annotation_table</th>
+      <td><p>an annotation table</p></td>
+    </tr>
+    <tr>
+      <th>return_sce</th>
+      <td><p>boolean to return SCE object instead of matrix</p></td>
     </tr>
     </table>
 
