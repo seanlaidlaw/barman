@@ -75,9 +75,9 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 	cores_cluster <- parallel::makeCluster(threads) #not to overload your computer
 	doParallel::registerDoParallel(cores_cluster)
 
-	library(doParallel)
+	suppressPackageStartupMessages(library(doParallel))
 	foreach::foreach(i=1:(length(present_in_dna))) %dopar% {
-		library(barman)
+		suppressPackageStartupMessages(library(barman))
 
 		parallel_seg_counter(present_in_dna[i])
 	}

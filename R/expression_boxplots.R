@@ -42,8 +42,8 @@ expression_boxplots <- function(experimental_group, control_group, counts_matrix
       x > quantile(x, .75) + 1.5 * IQR(x)
   }
 
-  library(dplyr)
-  library(ggplot2)
+  suppressPackageStartupMessages(library(dplyr))
+  suppressPackageStartupMessages(library(ggplot2))
   melted_counts_matrix %>%
     group_by(Group) %>%
     dplyr::mutate(outlier = is.outlier(value)) %>%

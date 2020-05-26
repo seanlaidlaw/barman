@@ -99,9 +99,9 @@ bulk_G_T_chr_plots <- function(dna_segments_dir, rna_segments_dir, output_dir=".
   }
 
 
-  library(doParallel)
+  suppressPackageStartupMessages(library(doParallel))
   foreach::foreach(i = 1:(length(sample_ids))) %dopar% {
-	library(barman)
+	suppressPackageStartupMessages(library(barman))
 
 	parallel_seg_counter(sample_ids[i],run_DNA=run_DNA, run_RNA=run_RNA)
   }

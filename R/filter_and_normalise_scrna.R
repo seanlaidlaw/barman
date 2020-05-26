@@ -74,7 +74,13 @@ filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", return_sc
 			fc_sce,
 			colour_by = "use")
 
-		ggplot2::ggsave(paste0(output_dir,"/PCA_filter.png"), qc_pca_plot)
+		ggplot2::ggsave(paste0(output_dir,"/PCA_filter.png"),
+				plot = qc_pca_plot,
+				width = 7,
+				height = 7,
+				device="png",
+				dpi="retina",
+				units="in")
 
 	} else {
 		# apply manual cutoffs
@@ -115,7 +121,13 @@ filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", return_sc
 			fc_sce,
 			colour_by = "use")
 
-		ggplot2::ggsave(paste0(output_dir,"/PCA_filter.png"), qc_pca_plot)
+		ggplot2::ggsave(paste0(output_dir,"/PCA_filter.png"),
+				plot = qc_pca_plot,
+				width = 7,
+				height = 7,
+				device="png",
+				dpi="retina",
+				units="in")
 	}
 
 
