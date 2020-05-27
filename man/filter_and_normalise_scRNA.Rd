@@ -7,7 +7,6 @@
 filter_and_normalise_scRNA(
   counts_matrix,
   output_dir = "./",
-  return_sce = FALSE,
   manual_filter = FALSE,
   filter_only = FALSE
 )
@@ -17,14 +16,12 @@ filter_and_normalise_scRNA(
 
 \item{output_dir}{output directory to save plots}
 
-\item{return_sce}{boolean to return SCE object instead of matrix}
-
 \item{manual_filter}{vector of 4 values, manually specifying upper cutoffs to apply for total counts. e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, pct mt, and pct ercc respectively. Also accepts lists instead of ints, where the first element of list is lower cutoff and second is upper cutoff.}
 
 \item{filter_only}{boolean to return only filtered (i.e. non-fpkm normalized) matrix}
 }
 \value{
-normalized counts matrix
+FPKM normalized counts matrix
 }
 \description{
 filters out poor quality cells and features, and converts counts matrix to FPKM

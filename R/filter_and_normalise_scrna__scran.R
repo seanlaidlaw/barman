@@ -4,15 +4,15 @@
 #'
 #' @param counts_matrix a raw counts matrix from featureCounts
 #' @param output_dir output directory to save plots
-#' @param return_sce boolean to return SCE object instead of matrix
 #' @param manual_filter vector of 4 values, manually specifying upper cutoffs to apply for total counts. e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, pct mt, and pct ercc respectively. Also accepts lists instead of ints, where the first element of list is lower cutoff and second is upper cutoff.
 #' @param filter_only boolean to return only filtered (i.e. non-fpkm normalized) matrix
 #'
 #' @return scran normalized counts matrix (returns 'logcounts(sce)')
 #'
 #' @export
-filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", return_sce=FALSE, manual_filter=FALSE, filter_only=FALSE) {
+filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", manual_filter=FALSE, filter_only=FALSE) {
 
+	# remove metadata (length, strand,etc.) columns from counts matrix to obtain a gene x cell matrix
 	trimmed_counts_matrix = counts_matrix
 	rownames(trimmed_counts_matrix) = trimmed_counts_matrix$Geneid
 	trimmed_counts_matrix$Geneid = NULL
@@ -29,7 +29,6 @@ filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", re
 		assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix)+1)),
 	)
 
-
 	mt_genes = c("MT-TF","MT-RNR1","MT-TV","MT-RNR2","MT-TL1","MT-ND1","MT-TI","MT-TQ","MT-TM","MT-ND2","MT-TW",
 				 "MT-TA","MT-TN","MT-TC","MT-TY","MT-CO1","MT-TS1","MT-TD","MT-CO2","MT-TK","MT-ATP8","MT-ATP6",
 				 "MT-CO3","MT-TG","MT-ND3","MT-TR","MT-ND4L","MT-ND4","MT-TH","MT-TS2","MT-TL2","MT-ND5","MT-ND6",
@@ -42,9 +41,11 @@ filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", re
 				 "ENSG00000198727","ENSG00000210195","ENSG00000210196")
 
 
+	# define non-endogenous genes, as they need separate normalisations
 	SingleCellExperiment::isSpike(fc_sce, "ERCC") = grepl("ERCC-", rownames(fc_sce))
 	SingleCellExperiment::isSpike(fc_sce, "MT") = rownames(fc_sce) %in% mt_genes
 
+	# calculate QC statistics
 	fc_sce <- scater::calculateQCMetrics(fc_sce,
 		feature_controls = list(
 		MT = SingleCellExperiment::isSpike(fc_sce, "MT"),
@@ -53,10 +54,6 @@ filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", re
 	)
 
 
-	#TODO: fiin where to put this
-	# remove non-endogenous genes
-	#fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "ERCC")]
-	#fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "MT")]
 
 	# remove genes not expressed in any cell
 	keep_feature <- rowSums(SingleCellExperiment::counts(fc_sce) > 0) > 0
@@ -132,39 +129,38 @@ filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", re
 				units="in")
 	}
 
-
+	# remove features that have less than 1 transcript in 2 or less cells
 	keep_feature <- scater::nexprs(
 		fc_sce[,SingleCellExperiment::colData(fc_sce)$use],
 		byrow = TRUE,
 		detection_limit = 1
 	) >= 2
 
+	# subset object to apply the filters we defined
 	fc_sce <- fc_sce[keep_feature,]
 	fc_sce <- fc_sce[,fc_sce$use]
 
 
+	# calculate length for remaining features (required if we change normalisation to FPKM)
 	length_list = merge(SingleCellExperiment::counts(fc_sce), length_list, by = "row.names")
 	length_list = subset(length_list, select = Length)
 	length_list = as.numeric(length_list$Length)
 
 	if (filter_only) {
-		if (return_sce) {
-			return(fc_sce)
-		} else {
-			rownames(counts_matrix) = counts_matrix$Geneid
-			counts_matrix$Geneid = NULL
-			counts_matrix = merge(counts_matrix[,c("Chr","Start","End","Strand","Length")], SingleCellExperiment::counts(fc_sce), by = "row.names")
-			counts_matrix$Geneid = counts_matrix$Row.names
-			counts_matrix$Row.names = NULL
-			counts_matrix = counts_matrix[,append("Geneid", colnames(counts_matrix)[1:length(colnames(counts_matrix))-1])]
+		# remove non-endogenous genes
+		fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "ERCC")]
+		fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "MT")]
 
-			return(counts_matrix)
-		}
+		rownames(counts_matrix) = counts_matrix$Geneid
+		counts_matrix$Geneid = NULL
+		counts_matrix = merge(counts_matrix[,c("Chr","Start","End","Strand","Length")], SingleCellExperiment::counts(fc_sce), by = "row.names")
+		counts_matrix$Geneid = counts_matrix$Row.names
+		counts_matrix$Row.names = NULL
+		counts_matrix = counts_matrix[,append("Geneid", colnames(counts_matrix)[1:length(colnames(counts_matrix))-1])]
+
+		return(counts_matrix)
 	}
 
-
-	# FPKM Normalization
-	#scater::fpkm(fc_sce) = scater::calculateFPKM(fc_sce, effective_length = length_list, exprs_values = "counts")
 
 	# scran Normalization
 	suppressPackageStartupMessages(library(scran))
@@ -185,15 +181,17 @@ filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", re
 	fc_sce = sce
 	rm(sce)
 
+	# remove non-endogenous genes
+	fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "ERCC")]
+	fc_sce = fc_sce[!SingleCellExperiment::isSpike(fc_sce, "MT")]
+	norm_matrix = SingleCellExperiment::logcounts(fc_sce)
 
-	if (return_sce) {
-		return(fc_sce)
-	}
 
 	fpkm_counts_matrix = counts_matrix
 	rownames(fpkm_counts_matrix) = fpkm_counts_matrix$Geneid
 	fpkm_counts_matrix$Geneid = NULL
-	fpkm_counts_matrix = merge(fpkm_counts_matrix[,c("Chr","Start","End","Strand","Length")], SingleCellExperiment::logcounts(fc_sce), by = "row.names")
+
+	fpkm_counts_matrix = merge(fpkm_counts_matrix[,c("Chr","Start","End","Strand","Length")], norm_matrix, by = "row.names")
 	fpkm_counts_matrix$Geneid = fpkm_counts_matrix$Row.names
 	fpkm_counts_matrix$Row.names = NULL
 	fpkm_counts_matrix = fpkm_counts_matrix[,append("Geneid", colnames(fpkm_counts_matrix)[1:length(colnames(fpkm_counts_matrix))-1])]
