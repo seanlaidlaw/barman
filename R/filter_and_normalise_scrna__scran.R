@@ -4,7 +4,6 @@
 #'
 #' @param counts_matrix a raw counts matrix from featureCounts
 #' @param output_dir output directory to save plots
-#' @param annotation_table an annotation table
 #' @param return_sce boolean to return SCE object instead of matrix
 #' @param manual_filter vector of 4 values, manually specifying upper cutoffs to apply for total counts. e.g. c(20000,6000000,20,50) for upper limits of total counts, total_features_by_counts, pct mt, and pct ercc respectively. Also accepts lists instead of ints, where the first element of list is lower cutoff and second is upper cutoff.
 #' @param filter_only boolean to return only filtered (i.e. non-fpkm normalized) matrix
@@ -12,7 +11,7 @@
 #' @return scran normalized counts matrix (returns 'logcounts(sce)')
 #'
 #' @export
-filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", annotation_table=FALSE, return_sce=FALSE, manual_filter=FALSE, filter_only=FALSE) {
+filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", return_sce=FALSE, manual_filter=FALSE, filter_only=FALSE) {
 
 	trimmed_counts_matrix = counts_matrix
 	rownames(trimmed_counts_matrix) = trimmed_counts_matrix$Geneid
@@ -25,17 +24,11 @@ filter_and_normalise_scRNA__scran <- function(counts_matrix, output_dir="./", an
 	length_list = subset(length_list, select = Length)
 	trimmed_counts_matrix$Length = NULL
 
+	# create a SingleCellExperiment object from matrix
+	fc_sce <- SingleCellExperiment::SingleCellExperiment(
+		assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix)+1)),
+	)
 
-	if (missing(annotation_table)) {
-		fc_sce <- SingleCellExperiment::SingleCellExperiment(
-			assays = list(counts = as.matrix(trimmed_counts_matrix)),
-		)
-	} else {
-		fc_sce <- SingleCellExperiment::SingleCellExperiment(
-			assays = list(counts = as.matrix(trimmed_counts_matrix)),
-			colData = annotation_table
-		)
-	}
 
 	mt_genes = c("MT-TF","MT-RNR1","MT-TV","MT-RNR2","MT-TL1","MT-ND1","MT-TI","MT-TQ","MT-TM","MT-ND2","MT-TW",
 				 "MT-TA","MT-TN","MT-TC","MT-TY","MT-CO1","MT-TS1","MT-TD","MT-CO2","MT-TK","MT-ATP8","MT-ATP6",
