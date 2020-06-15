@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="rename_counts_matrix_from_annotation — rename_counts_matrix_from_annotation" />
-<meta property="og:description" content="Renames the counts matrix column names from a provided annotation table" />
+<meta property="og:description" content="Renames the counts matrix column names from a specified column in a provided annotation table" />
 
 
 
@@ -114,14 +114,14 @@
     </div>
 
     <div class="ref-description">
-    <p>Renames the counts matrix column names from a provided annotation table</p>
+    <p>Renames the counts matrix column names from a specified column in a provided annotation table</p>
     </div>
 
     <pre class="usage"><span class='fu'>rename_counts_matrix_from_annotation</span>(
   <span class='no'>counts_matrix</span>,
   <span class='no'>annotation_table</span>,
-  <span class='no'>dna_cell_id</span>,
-  <span class='kw'>rna_cell_id</span> <span class='kw'>=</span> <span class='st'>""</span>
+  <span class='no'>new_columnname</span>,
+  <span class='kw'>old_columnname</span> <span class='kw'>=</span> <span class='st'>""</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -129,19 +129,19 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>counts_matrix</th>
-      <td><p>the featurecounts matrix</p></td>
+      <td><p>a matrix of gene x cells counts</p></td>
     </tr>
     <tr>
       <th>annotation_table</th>
-      <td><p>annotation table containing at least one column with the featurecounts column names, and another column we want to use to rename the counts matrix.</p></td>
+      <td><p>annotation table containing at least one column with the counts matrix column names, and another column we want to use to rename the counts matrix.</p></td>
     </tr>
     <tr>
-      <th>dna_cell_id</th>
-      <td><p>the columnname in the annotation_table, we want to use as the new featurecounts column names</p></td>
+      <th>new_columnname</th>
+      <td><p>the columnname in the annotation_table, we want to use as the new counts matrix column names</p></td>
     </tr>
     <tr>
-      <th>rna_cell_id</th>
-      <td><p>(optional) the columnname in the annotation_table containing the current featurecounts columnnames</p></td>
+      <th>old_columnname</th>
+      <td><p>(optional) the columnname in the annotation_table containing the current counts matrix columnnames</p></td>
     </tr>
     </table>
 
