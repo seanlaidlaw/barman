@@ -7,22 +7,22 @@
 rename_counts_matrix_from_annotation(
   counts_matrix,
   annotation_table,
-  dna_cell_id,
-  rna_cell_id = ""
+  new_columnname,
+  old_columnname = ""
 )
 }
 \arguments{
-\item{counts_matrix}{the featurecounts matrix}
+\item{counts_matrix}{a matrix of gene x cells counts}
 
-\item{annotation_table}{annotation table containing at least one column with the featurecounts column names, and another column we want to use to rename the counts matrix.}
+\item{annotation_table}{annotation table containing at least one column with the counts matrix column names, and another column we want to use to rename the counts matrix.}
 
-\item{dna_cell_id}{the columnname in the annotation_table, we want to use as the new featurecounts column names}
+\item{new_columnname}{the columnname in the annotation_table, we want to use as the new counts matrix column names}
 
-\item{rna_cell_id}{(optional) the columnname in the annotation_table containing the current featurecounts columnnames}
+\item{old_columnname}{(optional) the columnname in the annotation_table containing the current counts matrix columnnames}
 }
 \value{
 a renamed counts matrix
 }
 \description{
-Renames the counts matrix column names from a provided annotation table
+Renames the counts matrix column names from a specified column in a provided annotation table
 }
