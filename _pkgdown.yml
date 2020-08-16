@@ -25,6 +25,7 @@ reference:
 - contents:
   - rename_counts_matrix_from_annotation
   - remove_non_specific_annotation_columns
+  - order_chromosome_list
 - title: "Counts matrix normalization"
   desc: >
     Functions to filter and apply different normalizations to the counts matrix
