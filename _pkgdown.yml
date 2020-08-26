@@ -56,6 +56,7 @@ reference:
   - bulk_G_T_chr_plots
 - title: "Plotting Dosage effect"
   desc: >
-    Functions to associate copy number with expression
+    Functions to associate copy number with expression, and to plot the relationship between copy number and expression
 - contents:
   - bulk_correlate_CN_expression
+  - plot_CN_expression

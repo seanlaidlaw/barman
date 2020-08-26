@@ -21,8 +21,9 @@ ASCAT.summary.csv if converted with the ascat2sccnvsegfunction).}
 gene}
 }
 \value{
-NA
+Nothing
 }
 \description{
 Writes tables of RNA expression and DNA copy number for each gene, from each cell.
+Used to generate the table files needed for the plot_CN_expression() function
 }

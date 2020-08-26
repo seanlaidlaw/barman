@@ -1,6 +1,7 @@
 #' @title bulk_correlate_CN_expression
 #'
 #' @description Writes tables of RNA expression and DNA copy number for each gene, from each cell.
+#' Used to generate the table files needed for the plot_CN_expression() function
 #'
 #' @param normalised_counts_matrix a normalised counts matrix. Must contain metadata columns
 #' like featurecounts matrix.
@@ -9,7 +10,7 @@
 #' @param output_dir output directory to store tables correlating expression to copy number for each
 #' gene
 #'
-#' @return NA
+#' @return Nothing
 #'
 #' @export
 bulk_correlate_CN_expression = function(normalised_counts_matrix, dna_segments_dir, output_dir) {
