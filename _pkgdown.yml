@@ -54,3 +54,8 @@ reference:
 - contents:
   - G_T_chr_plot
   - bulk_G_T_chr_plots
+- title: "Plotting Dosage effect"
+  desc: >
+    Functions to associate copy number with expression
+- contents:
+  - bulk_correlate_CN_expression

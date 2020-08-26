@@ -3,6 +3,7 @@
 export(G_T_chr_plot)
 export(ascat2sccnvseg)
 export(bulk_G_T_chr_plots)
+export(bulk_correlate_CN_expression)
 export(bulk_get_expression_by_segment)
 export(expression_boxplots)
 export(filter_and_normalise_scRNA)
