@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>bulk_G_T_chr_plots — bulk_G_T_chr_plots • barman</title>
+<title>bulk_correlate_CN_expression — bulk_correlate_CN_expression • barman</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="bulk_G_T_chr_plots — bulk_G_T_chr_plots" />
-<meta property="og:description" content="runs the G_T_chr_plot function for a whole directory of scCNV segment files and RNA segment" />
+<meta property="og:title" content="bulk_correlate_CN_expression — bulk_correlate_CN_expression" />
+<meta property="og:description" content="Writes tables of RNA expression and DNA copy number for each gene, from each cell." />
 
 
 
@@ -108,47 +108,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>bulk_G_T_chr_plots</h1>
-    <small class="dont-index">Source: <a href='https://github.com/seanlaidlaw/barman/blob/master/R/bulk_G_T_chr_plots.R'><code>R/bulk_G_T_chr_plots.R</code></a></small>
-    <div class="hidden name"><code>bulk_G_T_chr_plots.Rd</code></div>
+    <h1>bulk_correlate_CN_expression</h1>
+    <small class="dont-index">Source: <a href='https://github.com/seanlaidlaw/barman/blob/master/R/bulk_correlate_CN_expression.R'><code>R/bulk_correlate_CN_expression.R</code></a></small>
+    <div class="hidden name"><code>bulk_correlate_CN_expression.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>runs the G_T_chr_plot function for a whole directory of scCNV segment files and RNA segment</p>
+    <p>Writes tables of RNA expression and DNA copy number for each gene, from each cell.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bulk_G_T_chr_plots</span>(
-  <span class='kw'>dna_segments_dir</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>rna_segments_dir</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>output_dir</span> <span class='kw'>=</span> <span class='st'>"./"</span>,
-  <span class='kw'>chromosomes</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='no'>threads</span>
+    <pre class="usage"><span class='fu'>bulk_correlate_CN_expression</span>(
+  <span class='no'>normalised_counts_matrix</span>,
+  <span class='no'>dna_segments_dir</span>,
+  <span class='no'>output_dir</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dna_segments_dir</th>
-      <td><p>folder of CNV segment files from scCNV or converted from ASCAT with ascat2sccnvseg()</p></td>
+      <th>normalised_counts_matrix</th>
+      <td><p>a normalised counts matrix. Must contain metadata columns
+like featurecounts matrix.</p></td>
     </tr>
     <tr>
-      <th>rna_segments_dir</th>
-      <td><p>folder of expression segment files, from get_expression_by_segment()</p></td>
+      <th>dna_segments_dir</th>
+      <td><p>a folder containing cell-specific segmentation files produced by scCNV (or from
+ASCAT.summary.csv if converted with the ascat2sccnvsegfunction).</p></td>
     </tr>
     <tr>
       <th>output_dir</th>
-      <td><p>directory where the plots will be saved</p></td>
-    </tr>
-    <tr>
-      <th>threads</th>
-      <td><p>number of threads to run concurrently (defaults to number of avaliable cores minus 1)</p></td>
+      <td><p>output directory to store tables correlating expression to copy number for each
+gene</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Nothing</p>
+    <p>NA</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
