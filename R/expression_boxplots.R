@@ -53,14 +53,14 @@ expression_boxplots <- function(experimental_group, control_group, counts_matrix
   boxplot_color_palete <- c("#4252A1", "#006A75", "#E1433D") # blue, green, red
 
   # plot boxes + outlier points with statistical signficance brackets
-  p <- ggplot2::ggplot(melted_counts_matrix, aes(x = Group, y = value, fill = Group)) +
+  p <- ggplot2::ggplot(melted_counts_matrix, ggplot2::aes(x = Group, y = value, fill = Group)) +
   	ggplot2::facet_wrap(~Chr, nrow = 1) +
   	ggplot2::geom_boxplot(outlier.color = NA) +
   	ggplot2::scale_fill_manual(values = boxplot_color_palete) +
   	ggplot2::scale_colour_manual(values = boxplot_color_palete) +
   	ggplot2::xlab("Group of Cells by Chromosome") +
   	ggplot2::ylab("Log Fold Change in Expression") +
-  	ggplot2::geom_point(data = melted_counts_matrix[melted_counts_matrix$outlier, ], aes(col = Group), size = 3) +
+  	ggplot2::geom_point(data = melted_counts_matrix[melted_counts_matrix$outlier, ], ggplot2::aes(col = Group), size = 3) +
     ggpubr::geom_signif(
       test = "wilcox.test", comparisons = list(c("Experiemental_mean", "Control_mean")),
       map_signif_level = T,
