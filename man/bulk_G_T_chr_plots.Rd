@@ -5,8 +5,8 @@
 \title{bulk_G_T_chr_plots}
 \usage{
 bulk_G_T_chr_plots(
-  dna_segments_dir,
-  rna_segments_dir,
+  dna_segments_dir = NA,
+  rna_segments_dir = NA,
   output_dir = "./",
   chromosomes = NA,
   threads
