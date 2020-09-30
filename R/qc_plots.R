@@ -11,39 +11,44 @@
 
 qc_plots <- function(counts_matrix) {
 
-	if (length(grep("ENSG[0-9]*", counts_matrix$Geneid)) > 0) {
-		mart72.hs <- biomaRt::useMart("ENSEMBL_MART_ENSEMBL", "hsapiens_gene_ensembl", host = "grch37.ensembl.org")
-		new_gene_ids = biomaRt::getBM(
-			attributes=c("ensembl_gene_id","hgnc_symbol"),
-			filters="ensembl_gene_id",
-			values=counts_matrix$Geneid,
-			mart=mart72.hs)
+	# if counts matrix is a featureCounts matrix with metadata columns then remove those
+	if (any(c("Geneid", "Chr", "Start", "End", "Strand", "Length") %in% colnames(counts_matrix))) {
 
-		new_gene_ids$Geneid = new_gene_ids$ensembl_gene_id
-		new_gene_ids$ensembl_gene_id = NULL
-		new_gene_ids = new_gene_ids[!duplicated(new_gene_ids[,c('Geneid')]),]
-		new_gene_ids = new_gene_ids[new_gene_ids$hgnc_symbol != "",]
+		if (length(grep("ENSG[0-9]*", counts_matrix$Geneid)) > 0) {
+			mart72.hs <- biomaRt::useMart("ENSEMBL_MART_ENSEMBL", "hsapiens_gene_ensembl", host = "grch37.ensembl.org")
+			new_gene_ids = biomaRt::getBM(
+				attributes=c("ensembl_gene_id","hgnc_symbol"),
+				filters="ensembl_gene_id",
+				values=counts_matrix$Geneid,
+				mart=mart72.hs)
 
-		new_table = merge(new_gene_ids, counts_matrix, by = "Geneid")
-		new_table$Geneid = NULL
-		new_table$Geneid = new_table$hgnc_symbol
-		new_table$hgnc_symbol = NULL
-		counts_matrix = new_table
+			new_gene_ids$Geneid = new_gene_ids$ensembl_gene_id
+			new_gene_ids$ensembl_gene_id = NULL
+			new_gene_ids = new_gene_ids[!duplicated(new_gene_ids[,c('Geneid')]),]
+			new_gene_ids = new_gene_ids[new_gene_ids$hgnc_symbol != "",]
+
+			new_table = merge(new_gene_ids, counts_matrix, by = "Geneid")
+			new_table$Geneid = NULL
+			new_table$Geneid = new_table$hgnc_symbol
+			new_table$hgnc_symbol = NULL
+			counts_matrix = new_table
+		}
+
+
+		trimmed_counts_matrix = counts_matrix
+		trimmed_counts_matrix = trimmed_counts_matrix[!duplicated(trimmed_counts_matrix[,c('Geneid')]),]
+		trimmed_counts_matrix = trimmed_counts_matrix[trimmed_counts_matrix$Geneid != "",]
+		rownames(trimmed_counts_matrix) = trimmed_counts_matrix$Geneid
+		trimmed_counts_matrix$Geneid = NULL
+		trimmed_counts_matrix$Chr = NULL
+		trimmed_counts_matrix$Start = NULL
+		trimmed_counts_matrix$End = NULL
+		trimmed_counts_matrix$Strand = NULL
+		trimmed_counts_matrix$Length = NULL
+	} else {
+		# if counts matrix is already gene x cell matrix then use it directly
+		trimmed_counts_matrix = counts_matrix
 	}
-
-
-	trimmed_counts_matrix = counts_matrix
-	trimmed_counts_matrix = trimmed_counts_matrix[!duplicated(trimmed_counts_matrix[,c('Geneid')]),]
-	trimmed_counts_matrix = trimmed_counts_matrix[trimmed_counts_matrix$Geneid != "",]
-	rownames(trimmed_counts_matrix) = trimmed_counts_matrix$Geneid
-	trimmed_counts_matrix$Geneid = NULL
-	trimmed_counts_matrix$Chr = NULL
-	trimmed_counts_matrix$Start = NULL
-	trimmed_counts_matrix$End = NULL
-	trimmed_counts_matrix$Strand = NULL
-	length_list = trimmed_counts_matrix
-	length_list = subset(length_list, select = Length)
-	trimmed_counts_matrix$Length = NULL
 
 
 	fc_sce <- SingleCellExperiment::SingleCellExperiment(
