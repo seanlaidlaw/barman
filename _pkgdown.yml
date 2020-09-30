@@ -30,7 +30,9 @@ reference:
   desc: >
     Functions to filter and apply different normalizations to the counts matrix
 - contents:
-  - filter_and_normalise_scRNA
+  - filter_and_normalise_scRNA__fpkm
+  - filter_and_normalise_scRNA__scran
+  - filter_and_normalise_scRNA__seurat
   - zscore_transform
   - logR_by_ref_group
 - title: "Plotting RNA only"

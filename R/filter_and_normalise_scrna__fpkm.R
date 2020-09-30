@@ -1,4 +1,4 @@
-#' @title filter_and_normalise_scRNA
+#' @title filter_and_normalise_scRNA__fpkm
 #'
 #' @description filters out poor quality cells and features, and converts counts matrix to FPKM
 #'
@@ -10,7 +10,7 @@
 #' @return FPKM normalized counts matrix
 #'
 #' @export
-filter_and_normalise_scRNA <- function(counts_matrix, output_dir="./", manual_filter=FALSE, filter_only=FALSE) {
+filter_and_normalise_scRNA__fpkm <- function(counts_matrix, output_dir="./", manual_filter=FALSE, filter_only=FALSE) {
 
 	# remove metadata (length, strand,etc.) columns from counts matrix to obtain a gene x cell matrix
 	trimmed_counts_matrix = counts_matrix
