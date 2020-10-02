@@ -92,7 +92,8 @@ bulk_G_T_chr_plots <- function(dna_segments_dir=NA, rna_segments_dir=NA, output_
 
   suppressPackageStartupMessages(library(doParallel))
   foreach::foreach(i = 1:(length(sample_ids))) %dopar% {
-	suppressPackageStartupMessages(library(barman))
+	# TODO: remove the lib.loc part when barman ships with container
+	suppressPackageStartupMessages(library("barman", lib.loc = "/localRlibs"))
 
 	parallel_seg_counter(sample_ids[i],run_DNA=run_DNA, run_RNA=run_RNA)
   }
