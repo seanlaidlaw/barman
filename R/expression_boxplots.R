@@ -28,7 +28,7 @@ expression_boxplots <- function(experimental_group, control_group, counts_matrix
   counts_matrix = as.data.frame(counts_matrix)
 
 
-  melted_counts_matrix <- reshape2::melt(counts_matrix)
+  melted_counts_matrix <- suppressMessages(reshape2::melt(counts_matrix))
 
   colnames(melted_counts_matrix)[2] <- "Group"
 
