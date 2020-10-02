@@ -77,9 +77,7 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 
 	suppressPackageStartupMessages(library(doParallel))
 	foreach::foreach(i=1:(length(present_in_dna))) %dopar% {
-		suppressPackageStartupMessages(library(barman))
-
-		parallel_seg_counter(present_in_dna[i])
+		barman::parallel_seg_counter(present_in_dna[i])
 	}
 
 	parallel::stopCluster(cores_cluster)
