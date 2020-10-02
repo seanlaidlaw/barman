@@ -78,7 +78,7 @@ bulk_get_expression_by_segment = function(counts_matrix, dna_segments_dir, outpu
 	suppressPackageStartupMessages(library(doParallel))
 	foreach::foreach(i=1:(length(present_in_dna))) %dopar% {
 		# TODO: remove the lib.loc part when barman ships with container
-		suppressPackageStartupMessages(library("barman", lib.loc = "/localRlibs"))
+		suppressPackageStartupMessages(library("barman"))
 
 		parallel_seg_counter(present_in_dna[i])
 	}
