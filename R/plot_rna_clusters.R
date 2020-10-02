@@ -87,7 +87,7 @@ plot_rna_clusters <- function(normalised_counts_matrix, annotation_table, umap_v
 		plt = scater::plotUMAP(
 			normalised_SCE_object,
 			colour_by = pc1_major_var,
-			size_by = pc2_major_var)
+			shape_by = pc2_major_var)
 	} else {
 		plt = scater::plotUMAP(
 			normalised_SCE_object,
