@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>plot_rna_clusters — plot_rna_clusters • barman</title>
+<title>infer_signif_annot_cols — infer_signif_annot_cols • barman</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="plot_rna_clusters — plot_rna_clusters" />
-<meta property="og:description" content="plots UMAP of a filtered and normalized SingleCellExperiement object" />
+<meta property="og:title" content="infer_signif_annot_cols — infer_signif_annot_cols" />
+<meta property="og:description" content="infers what Principal Components should be analysed. Determines what columns in
+annotation table represent the highest variance in the normalised counts matrix" />
 
 
 
@@ -108,16 +109,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>plot_rna_clusters</h1>
-    <small class="dont-index">Source: <a href='https://github.com/seanlaidlaw/barman/blob/master/R/plot_rna_clusters.R'><code>R/plot_rna_clusters.R</code></a></small>
-    <div class="hidden name"><code>plot_rna_clusters.Rd</code></div>
+    <h1>infer_signif_annot_cols</h1>
+    <small class="dont-index">Source: <a href='https://github.com/seanlaidlaw/barman/blob/master/R/infer_signif_annot_cols.R'><code>R/infer_signif_annot_cols.R</code></a></small>
+    <div class="hidden name"><code>infer_signif_annot_cols.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>plots UMAP of a filtered and normalized SingleCellExperiement object</p>
+    <p>infers what Principal Components should be analysed. Determines what columns in
+annotation table represent the highest variance in the normalised counts matrix</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_rna_clusters</span>(<span class='no'>normalised_counts_matrix</span>, <span class='no'>annotation_table</span>, <span class='no'>umap_vars</span>)</pre>
+    <pre class="usage"><span class='fu'>infer_signif_annot_cols</span>(<span class='no'>normalised_counts_matrix</span>, <span class='no'>annotation_table</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,16 +132,11 @@
       <th>annotation_table</th>
       <td><p>a table of cell annotations, with  rows corresponding to colnames in normalised_counts_matrix</p></td>
     </tr>
-    <tr>
-      <th>umap_vars</th>
-      <td><p>a vector of 2 colnames from annotation table, to manually specifiy the plot's
-colour and shape values respectively</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>ggplot2 object of UMAP</p>
+    <p>a vector of annotation_table column names</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
