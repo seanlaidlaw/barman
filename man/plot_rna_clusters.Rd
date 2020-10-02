@@ -4,18 +4,15 @@
 \alias{plot_rna_clusters}
 \title{plot_rna_clusters}
 \usage{
-plot_rna_clusters(
-  normalised_counts_matrix,
-  annotation_table,
-  umap_vars = FALSE
-)
+plot_rna_clusters(normalised_counts_matrix, annotation_table, umap_vars)
 }
 \arguments{
 \item{normalised_counts_matrix}{a filtered, normalized, and log transformed counts matrix}
 
 \item{annotation_table}{a table of cell annotations, with  rows corresponding to colnames in normalised_counts_matrix}
 
-\item{umap_vars}{a vector of 2 colnames from annotation table, to manually specifiy the plot's colour and size values respectively}
+\item{umap_vars}{a vector of 2 colnames from annotation table, to manually specifiy the plot's
+colour and shape values respectively}
 }
 \value{
 ggplot2 object of UMAP
