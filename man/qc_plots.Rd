@@ -7,7 +7,8 @@
 qc_plots(counts_matrix)
 }
 \arguments{
-\item{counts_matrix}{a raw counts matrix from featureCounts}
+\item{counts_matrix}{a raw counts matrix from featureCounts, where feature names correspond to
+hgnc symbols}
 }
 \value{
 ggplot2 object of violin plot

@@ -2,7 +2,8 @@
 #'
 #' @description plots total_counts total_features_by_counts, mt% and ercc% for given counts matrix
 #'
-#' @param counts_matrix a raw counts matrix from featureCounts
+#' @param counts_matrix a raw counts matrix from featureCounts, where feature names correspond to
+#' hgnc symbols
 #'
 #' @return ggplot2 object of violin plot
 #'
@@ -13,28 +14,6 @@ qc_plots <- function(counts_matrix) {
 
 	# if counts matrix is a featureCounts matrix with metadata columns then remove those
 	if (any(c("Geneid", "Chr", "Start", "End", "Strand", "Length") %in% colnames(counts_matrix))) {
-
-		if (length(grep("ENSG[0-9]*", counts_matrix$Geneid)) > 0) {
-			mart72.hs <- biomaRt::useMart("ENSEMBL_MART_ENSEMBL", "hsapiens_gene_ensembl", host = "grch37.ensembl.org")
-			new_gene_ids = biomaRt::getBM(
-				attributes=c("ensembl_gene_id","hgnc_symbol"),
-				filters="ensembl_gene_id",
-				values=counts_matrix$Geneid,
-				mart=mart72.hs)
-
-			new_gene_ids$Geneid = new_gene_ids$ensembl_gene_id
-			new_gene_ids$ensembl_gene_id = NULL
-			new_gene_ids = new_gene_ids[!duplicated(new_gene_ids[,c('Geneid')]),]
-			new_gene_ids = new_gene_ids[new_gene_ids$hgnc_symbol != "",]
-
-			new_table = merge(new_gene_ids, counts_matrix, by = "Geneid")
-			new_table$Geneid = NULL
-			new_table$Geneid = new_table$hgnc_symbol
-			new_table$hgnc_symbol = NULL
-			counts_matrix = new_table
-		}
-
-
 		trimmed_counts_matrix = counts_matrix
 		trimmed_counts_matrix = trimmed_counts_matrix[!duplicated(trimmed_counts_matrix[,c('Geneid')]),]
 		trimmed_counts_matrix = trimmed_counts_matrix[trimmed_counts_matrix$Geneid != "",]
