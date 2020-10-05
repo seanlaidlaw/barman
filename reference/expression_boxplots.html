@@ -117,7 +117,12 @@
     <p>Generates per chromosome boxplots for the mean expression for each gene, grouped by chromosome</p>
     </div>
 
-    <pre class="usage"><span class='fu'>expression_boxplots</span>(<span class='no'>experimental_group</span>, <span class='no'>control_group</span>, <span class='no'>counts_matrix</span>)</pre>
+    <pre class="usage"><span class='fu'>expression_boxplots</span>(
+  <span class='no'>experimental_group</span>,
+  <span class='no'>control_group</span>,
+  <span class='no'>counts_matrix</span>,
+  <span class='kw'>chr_list</span> <span class='kw'>=</span> <span class='fl'>NA</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,6 +138,10 @@
     <tr>
       <th>counts_matrix</th>
       <td><p>counts matrix with expression we want to plot, needs to already be normalised</p></td>
+    </tr>
+    <tr>
+      <th>chr_list</th>
+      <td><p>vector of chromosome names to plot</p></td>
     </tr>
     </table>
 
