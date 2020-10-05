@@ -38,7 +38,7 @@ bulk_G_T_chr_plots <- function(dna_segments_dir=NA, rna_segments_dir=NA, output_
 
 
 	# Define a function where the heavy lifting happens, that can be easily inserted into a foreach loop to parallelise
-	parallel_seg_counter <- function(sample_name, run_DNA, run_RNA) {
+	parallel_seg_counter <- function(sample_name, run_DNA, run_RNA, chr_list) {
 
 		plot_title <- paste0(sample_name)
 
@@ -49,18 +49,18 @@ bulk_G_T_chr_plots <- function(dna_segments_dir=NA, rna_segments_dir=NA, output_
 			rna_seg_filename <- list.files(rna_segments_dir)[grepl(paste0(".*?", sample_name, ".*"), list.files(rna_segments_dir))]
 			rna_seg <- read.table(paste0(rna_segments_dir, "/", rna_seg_filename), header = T, sep = "\t", stringsAsFactors = F)
 
-			plt <- G_T_chr_plot(cnv_data = dna_seg, exp_data = rna_seg,output_dir=output_dir, title = plot_title, save = T)
+			plt <- G_T_chr_plot(cnv_data = dna_seg, exp_data = rna_seg,output_dir=output_dir, title = plot_title, save = T, chromosomes = chr_list)
 
 		} else if (run_DNA) {
 			# read in DNA segment file
 			dna_seg_filename <- list.files(dna_segments_dir)[grepl(paste0(".*?", sample_name, ".*"), list.files(dna_segments_dir))]
 			dna_seg <- read.table(paste0(dna_segments_dir, "/", dna_seg_filename), header = T, sep = "\t", stringsAsFactors = F)
-			plt <- G_T_chr_plot(cnv_data = dna_seg,output_dir=output_dir, title = plot_title, save = T)
+			plt <- G_T_chr_plot(cnv_data = dna_seg,output_dir=output_dir, title = plot_title, save = T, chromosomes = chr_list)
 		} else if (run_RNA) {
 			# read in RNA segment file
 			rna_seg_filename <- list.files(rna_segments_dir)[grepl(paste0(".*?", sample_name, ".*"), list.files(rna_segments_dir))]
 			rna_seg <- read.table(paste0(rna_segments_dir, "/", rna_seg_filename), header = T, sep = "\t", stringsAsFactors = F)
-			plt <- G_T_chr_plot(exp_data = rna_seg,output_dir=output_dir, title = plot_title, save = T)
+			plt <- G_T_chr_plot(exp_data = rna_seg,output_dir=output_dir, title = plot_title, save = T, chromosomes = chr_list)
 		}
 
 	 return(plt)
@@ -95,7 +95,7 @@ bulk_G_T_chr_plots <- function(dna_segments_dir=NA, rna_segments_dir=NA, output_
 	# TODO: remove the lib.loc part when barman ships with container
 	suppressPackageStartupMessages(library("barman"))
 
-	parallel_seg_counter(sample_ids[i],run_DNA=run_DNA, run_RNA=run_RNA)
+	parallel_seg_counter(sample_ids[i],run_DNA=run_DNA, run_RNA=run_RNA, chr_list=chromosomes)
   }
 
   parallel::stopCluster(cores_cluster)

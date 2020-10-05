@@ -4,7 +4,12 @@
 \alias{expression_boxplots}
 \title{expression_boxplots}
 \usage{
-expression_boxplots(experimental_group, control_group, counts_matrix, chr_list)
+expression_boxplots(
+  experimental_group,
+  control_group,
+  counts_matrix,
+  chr_list = NA
+)
 }
 \arguments{
 \item{experimental_group}{list of column names corresponding to samples we want to use to show the mean expression of cells of interest}

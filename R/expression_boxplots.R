@@ -10,7 +10,7 @@
 #' @return ggplot2 object
 #'
 #' @export
-expression_boxplots <- function(experimental_group, control_group, counts_matrix, chr_list) {
+expression_boxplots <- function(experimental_group, control_group, counts_matrix, chr_list=NA) {
 
   experimental_group <- experimental_group[experimental_group %in% colnames(counts_matrix)]
   control_group <- control_group[control_group %in% colnames(counts_matrix)]
@@ -25,7 +25,10 @@ expression_boxplots <- function(experimental_group, control_group, counts_matrix
   counts_matrix$Control_mean <- rowMeans(as.matrix(counts_matrix[, control_group]), na.rm = T)
 
   counts_matrix <- counts_matrix[, c("Chr", "Experiemental_mean", "Control_mean")]
-  if (!missing(chr_list)) {
+  if (typeof(chr_list) == "list") {
+	  if (!any(counts_matrix$Chr %in% chr_list)) {
+	  	stop(paste0("counts matrix doesnt have any of the chromosomes selected with 'chr_list' option. Supplied 'chr_list' is: ", chr_list))
+	  }
 	counts_matrix <- counts_matrix[counts_matrix$Chr %in% chr_list, ]
   }
   counts_matrix = as.data.frame(counts_matrix)
