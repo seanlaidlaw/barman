@@ -25,7 +25,10 @@ G_T_chr_plot <- function(cnv_data, exp_data, chromosomes=NA, output_dir="./", ti
 	if (is.na(chromosomes)) {
 		# if no chromosome argument provided, use all
 		chromosomes = paste0("chr",unique(cnv_data$Chr))
+	} else {
+		chromosomes = paste0("chr",unique(chromosomes))
 	}
+
 
 	if (!dir.exists(output_dir)) {
 		dir.create(output_dir)
