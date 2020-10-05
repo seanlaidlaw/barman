@@ -1,6 +1,7 @@
 #' @title filter_and_normalise_scRNA__seurat
 #'
 #' @description filters out poor quality cells and features, and converts counts matrix to seurat normalized matrix
+#' Expects ERCC features to be named 'ERCC-*' and mitochondrial genes to be named 'MT-*'
 #'
 #' @param counts_matrix a raw counts matrix from featureCounts
 #' @param output_dir output directory to save plots
@@ -29,21 +30,9 @@ filter_and_normalise_scRNA__seurat <- function(counts_matrix, output_dir="./", m
 		assays = list(counts = as.matrix(trimmed_counts_matrix), logcounts = log2(as.matrix(trimmed_counts_matrix)+1)),
 	)
 
-	mt_genes = c("MT-TF","MT-RNR1","MT-TV","MT-RNR2","MT-TL1","MT-ND1","MT-TI","MT-TQ","MT-TM","MT-ND2","MT-TW",
-				 "MT-TA","MT-TN","MT-TC","MT-TY","MT-CO1","MT-TS1","MT-TD","MT-CO2","MT-TK","MT-ATP8","MT-ATP6",
-				 "MT-CO3","MT-TG","MT-ND3","MT-TR","MT-ND4L","MT-ND4","MT-TH","MT-TS2","MT-TL2","MT-ND5","MT-ND6",
-				 "MT-TE","MT-CYB","MT-TT","MT-TP", "ENSG00000210049","ENSG00000211459","ENSG00000210077","ENSG00000210082",
-				 "ENSG00000209082","ENSG00000198888","ENSG00000210100","ENSG00000210107","ENSG00000210112","ENSG00000198763",
-				 "ENSG00000210117","ENSG00000210127","ENSG00000210135","ENSG00000210140","ENSG00000210144","ENSG00000198804",
-				 "ENSG00000210151","ENSG00000210154","ENSG00000198712","ENSG00000210156","ENSG00000228253","ENSG00000198899",
-				 "ENSG00000198938","ENSG00000210164","ENSG00000198840","ENSG00000210174","ENSG00000212907","ENSG00000198886",
-				 "ENSG00000210176","ENSG00000210184","ENSG00000210191","ENSG00000198786","ENSG00000198695","ENSG00000210194",
-				 "ENSG00000198727","ENSG00000210195","ENSG00000210196")
-
-
 	# define non-endogenous genes, as they need separate normalisations
 	SingleCellExperiment::isSpike(fc_sce, "ERCC") = grepl("ERCC-", rownames(fc_sce))
-	SingleCellExperiment::isSpike(fc_sce, "MT") = rownames(fc_sce) %in% mt_genes
+	SingleCellExperiment::isSpike(fc_sce, "MT") =  grepl("MT-", rownames(fc_sce))
 
 	# calculate QC statistics
 	fc_sce <- scater::calculateQCMetrics(fc_sce,

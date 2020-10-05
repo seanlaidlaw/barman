@@ -24,5 +24,6 @@ filter_and_normalise_scRNA__fpkm(
 FPKM normalized counts matrix
 }
 \description{
-filters out poor quality cells and features, and converts counts matrix to FPKM
+filters out poor quality cells and features, and converts counts matrix to FPKM.
+Expects ERCC features to be named 'ERCC-*' and mitochondrial genes to be named 'MT-*'
 }

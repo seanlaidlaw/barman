@@ -25,4 +25,5 @@ scran normalized counts matrix (returns 'logcounts(sce)')
 }
 \description{
 filters out poor quality cells and features, and converts counts matrix to scran normalized matrix
+Expects ERCC features to be named 'ERCC-*' and mitochondrial genes to be named 'MT-*'
 }
