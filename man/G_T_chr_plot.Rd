@@ -9,7 +9,6 @@ G_T_chr_plot(
   exp_data,
   chromosomes = NA,
   output_dir = "./",
-  highlight_gene,
   title,
   save
 )
@@ -22,8 +21,6 @@ G_T_chr_plot(
 \item{chromosomes}{optional list of chromosomes to plot, defaults to all chromosomes}
 
 \item{output_dir}{output directory to store saved plots}
-
-\item{highlight_gene}{name of a gene to show in red on G_T_chr_plot, allows visualisation of copy number for a specific gene}
 
 \item{title}{Plot title}
 
