@@ -5,11 +5,12 @@
 #' @param experimental_group list of column names corresponding to samples we want to use to show the mean expression of cells of interest
 #' @param control_group  list of column names corresponding to samples we want to use to show the mean expression over control cells
 #' @param counts_matrix counts matrix with expression we want to plot, needs to already be normalised
+#' @param chr_list vector of chromosome names to plot
 #'
 #' @return ggplot2 object
 #'
 #' @export
-expression_boxplots <- function(experimental_group, control_group, counts_matrix) {
+expression_boxplots <- function(experimental_group, control_group, counts_matrix, chr_list) {
 
   experimental_group <- experimental_group[experimental_group %in% colnames(counts_matrix)]
   control_group <- control_group[control_group %in% colnames(counts_matrix)]
@@ -24,7 +25,9 @@ expression_boxplots <- function(experimental_group, control_group, counts_matrix
   counts_matrix$Control_mean <- rowMeans(as.matrix(counts_matrix[, control_group]), na.rm = T)
 
   counts_matrix <- counts_matrix[, c("Chr", "Experiemental_mean", "Control_mean")]
-  counts_matrix <- counts_matrix[counts_matrix$Chr %in% c(1:22, "X", "Y"), ]
+  if (!missing(chr_list)) {
+	counts_matrix <- counts_matrix[counts_matrix$Chr %in% chr_list, ]
+  }
   counts_matrix = as.data.frame(counts_matrix)
 
 

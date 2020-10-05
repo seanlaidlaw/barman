@@ -4,7 +4,7 @@
 \alias{expression_boxplots}
 \title{expression_boxplots}
 \usage{
-expression_boxplots(experimental_group, control_group, counts_matrix)
+expression_boxplots(experimental_group, control_group, counts_matrix, chr_list)
 }
 \arguments{
 \item{experimental_group}{list of column names corresponding to samples we want to use to show the mean expression of cells of interest}
@@ -12,6 +12,8 @@ expression_boxplots(experimental_group, control_group, counts_matrix)
 \item{control_group}{list of column names corresponding to samples we want to use to show the mean expression over control cells}
 
 \item{counts_matrix}{counts matrix with expression we want to plot, needs to already be normalised}
+
+\item{chr_list}{vector of chromosome names to plot}
 }
 \value{
 ggplot2 object
